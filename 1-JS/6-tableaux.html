@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tableaux</title>
+
+</head>
+<body>
+    <h1>Tableaux</h1>
+
+    <p>
+        Un tableau est une variable qui peut contenir plusieurs valeurs.
+        Chaque valeur est accessible grâce à un indice (qui commence à 0).
+
+        On peut modifier ou utiliser une valeur en choisissant son indice,
+        ou on peut afficher toutes les valeurs d'un tableau grâce à une boucle :
+        on va parcourir le tableau.
+    </p>
+
+    <script>
+        // déclarer un tableau en JS et le typer est obligatoire
+        var names = new Array();
+        var names = [];
+        names[0] = "Toto";
+        names[1] = "Fab";
+        names[2] = "Tom";
+        names[3] = "Bashir";
+        console.log(names);
+
+        document.write(names[2]);
+
+        // dans un tableau javascript, les valeurs n'ont pas forcément le même type
+        var notes = [];
+        // push ajoute un élément dans le tableau en dernière position
+        notes.push(13);
+        notes.push(14);
+        notes.push(15);
+        notes.push("La république c'est MOI");
+        notes.push(true);
+
+    </script>
+</body>
+</html>

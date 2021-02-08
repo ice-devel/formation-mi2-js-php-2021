@@ -13,7 +13,7 @@
             <ul>
                 <li>Gratuit en dessous de 12</li>
                 <li>15€ si 12-25ans</li>
-                <li>20€ si 25-59ans</li>
+                <li>20€ si 26-59ans</li>
                 <li>17€ à partir de 60ans</li>
             </ul>
         </li>
@@ -26,6 +26,86 @@
 
 
     <script>
+        // Exercice 1
+        var age = prompt("Votre age ?");
+
+        // v1
+        if (age < 12) {
+            document.write("Le billet est gratuit");
+        }
+        else if (age >= 12 && age <= 25) {
+            document.write("Le billet est à 15€");
+        }
+        else if (age >= 26 && age <= 59) {
+            document.write("Le billet est à 20€");
+        }
+        else if (age >= 60) {
+            document.write("Le billet est à 17€");
+        }
+
+        // v2
+        if (age < 12) {
+            document.write("Le billet est gratuit");
+        } else if (age >= 12 && age <= 25) {
+            document.write("Le billet est à 15€");
+        } else if (age >= 26 && age <= 59) {
+            document.write("Le billet est à 20€");
+        } else {
+            document.write("Le billet est à 17€");
+        }
+
+        // v3
+        if (age >= 60) {
+            document.write("Le billet est à 17€");
+        } else if (age >= 26 && age <= 59) {
+            document.write("Le billet est à 20€");
+        } else if (age >= 12 && age <= 25) {
+            document.write("Le billet est à 15€");
+        } else {
+            document.write("Le billet est gratuit");
+        }
+
+        // v4
+        if (age >= 60) {
+            document.write("Le billet est à 17€");
+        } else if (age >= 26) {
+            document.write("Le billet est à 20€");
+        } else if (age >= 12) {
+            document.write("Le billet est à 15€");
+        } else {
+            document.write("Le billet est gratuit");
+        }
+
+        // Exercice 2 :
+        // while
+        var total = 0;
+        var nbNotes = 0;
+        var note = prompt("Note ?");
+
+        while (note != -1) {
+            nbNotes++;
+            total = total + parseInt(note);
+            document.write("<p>" + note + "</p>");
+            note = prompt("Note suivante ?");
+        }
+
+        if (nbNotes > 0) {
+            document.write("La moyenne est : " + (total / nbNotes));
+        }
+
+
+        // do while
+        var total = 0;
+        var nbNotes = 0;
+
+        do {
+            var note = prompt("Note ?");
+            if (note != -1) {
+                nbNotes++;
+                total = total + parseInt(note);
+                document.write("<p>" + note + "</p>");
+            }
+        } while (note != -1);
 
     </script>
 </body>
