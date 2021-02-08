@@ -2,59 +2,84 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Variables javascript 2</title>
+    <title>Variables javascript</title>
 
 </head>
 <body>
     <h1>Variables Javascript</h1>
 
     <p>
-        Comme pour tout langage de programmation, le JS peut utiliser des variables :
-        Une variable, c'est une emplacement en mémoire où l'on peut stocker une (ou plusieurs) valeurs,
-        représentée dans le programme par un nom.
+        Un algorithme est composé d'instructions : elles sont executées les unes après les autres.
     </p>
-
-    <p>
-        Le langage JS est un langage faiblement typé : il n'y a pas obligation à type ses variables.
-        JS le fait pour nous à l'exécution.
-        Les types primitifs en javascript :
-    </p>
-
-    <ul>
-        <li>Chaines de caractères (string)</li>
-        <li>Nombres (number) : entier + nombre à virgule</li>
-        <li>Boolean (boolean) : vrai ou faux</li>
-    </ul>
 
     <script>
-        // déclaration d'une variable (pas obligatoire)
-        var firstname;
+        // opérations arithmétiques
+        var somme = 10 + 4;
+        var difference = 50 - 3;
+        var produit = 3 * 4;
+        var quotient = 10 / 3;
+        var operation = 34 / 4 + 5 * 4.2 - 3;
+        var operation2 = 34 / (4 + 5) * 4.2 - 3;
 
-        // initialisation
-        firstname = "Zorro"; // type string automatiquement détecté
-        console.log(firstname);
-        console.log(typeof firstname);
+        var somme2 = produit + operation2;
 
-        age = 25; // type number automatiquement détecté
-        console.log(age);
-        console.log(typeof age);
+        // opérations arithmétiques
+        somme = somme + 15;
+        // écriture simplifiée :
+        somme += 15;
+        somme -= 5;
+        somme *= 5;
+        somme /= 5;
 
-        isEnabled = false; // type boolean automatiquement détecté
-        console.log(isEnabled);
-        console.log(typeof isEnabled);
+        // écriture incrémentation / décrémentation par pas de 1
+        var i = 0;
+        i = i + 1;
+        i += 1;
+        i++;
 
-        // attention, le type peut changer
-        age = "dave"; // ici le type de la variable est modifié à la volée
+        i = i - 1;
+        i -= 1;
+        i--;
 
-        // constante : ne peux pas changer de valeur pendant l'exécution
-        const TVA = 0.2;
+        // concaténation : assembler plusieurs chaines de caractères ensemble
+        string1 = "Hello";
+        string2 = "Everybody";
+        string3 = string1 + " " + string2;
+        console.log(string3);
 
-        var priceHT = 30;
-        var priceTTC = priceHT + priceHT * TVA;
+        // l'une des deux parties est une chaine : le + fera une concaténation, et non une addition
+        var resultat = "50" + 3;
+        console.log(resultat); // 503
 
-        // TVA = 0.22; // impossible : plante / bug / t'es nul / noob
-        // une ligne en JS qui plante : le reste ne s'exécute pas
+        var resultat2 = 50 + "34" * 10;
+        console.log(resultat2); // 390
 
+        var resultat3 = "34" + 10 * 10;
+        console.log(resultat3); // 34100
+
+        // intéragir avec l'utilisateur (lui demander une valeur)
+        var age = prompt("Quel est vôtre âge ?");
+        // prompt renvoie une valeur de type chaine de caractères
+
+        var remaining  = 18 - age;
+        alert("Il reste " + remaining + " années avant d'être majeur");
+
+        // pas bon
+        alert('Votre age dans 3 ans : ' + (age + 3)); // pas bon
+
+        // bon
+        age = parseInt(age);
+        alert('Votre age dans 3 ans : ' + (age + 3)); // bon
+
+        age1 = 20;
+        age2 = 22;
+        console.log(String(age1) + age2.toString());
+
+        // pour débugger :
+        // afficher une variable dans alert() : c'est de la merde (uniquement pour des entiers et des chaines)
+        // debugger avec console.log() : mieux et ça marche avec tout
+        // debugger avec la console (en mode pas à pas) : on crée des points d'arrêt directement dans le navigateur
+        // dans chrome c'est l'onglet source après avoir pressé F12
     </script>
 </body>
 </html>
