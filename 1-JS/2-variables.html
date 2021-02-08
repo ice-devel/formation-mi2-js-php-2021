@@ -2,12 +2,58 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Variables javascript</title>
+    <title>Variables javascript 2</title>
 
 </head>
 <body>
     <h1>Variables Javascript</h1>
+
+    <p>
+        Comme pour tout langage de programmation, le JS peut utiliser des variables :
+        Une variable, c'est une emplacement en mémoire où l'on peut stocker une (ou plusieurs) valeurs,
+        représentée dans le programme par un nom.
+    </p>
+
+    <p>
+        Le langage JS est un langage faiblement typé : il n'y a pas obligation à type ses variables.
+        JS le fait pour nous à l'exécution.
+        Les types primitifs en javascript :
+    </p>
+
+    <ul>
+        <li>Chaines de caractères (string)</li>
+        <li>Nombres (number) : entier + nombre à virgule</li>
+        <li>Boolean (boolean) : vrai ou faux</li>
+    </ul>
+
     <script>
+        // déclaration d'une variable (pas obligatoire)
+        var firstname;
+
+        // initialisation
+        firstname = "Zorro"; // type string automatiquement détecté
+        console.log(firstname);
+        console.log(typeof firstname);
+
+        age = 25; // type number automatiquement détecté
+        console.log(age);
+        console.log(typeof age);
+
+        isEnabled = false; // type boolean automatiquement détecté
+        console.log(isEnabled);
+        console.log(typeof isEnabled);
+
+        // attention, le type peut changer
+        age = "dave"; // ici le type de la variable est modifié à la volée
+
+        // constante : ne peux pas changer de valeur pendant l'exécution
+        const TVA = 0.2;
+
+        var priceHT = 30;
+        var priceTTC = priceHT + priceHT * TVA;
+
+        // TVA = 0.22; // impossible : plante / bug / t'es nul / noob
+        // une ligne en JS qui plante : le reste ne s'exécute pas
 
     </script>
 </body>
