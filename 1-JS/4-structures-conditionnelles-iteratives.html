@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Structures conditionelles et itératives javascript</title>
+
+</head>
+<body>
+    <h1>Structures conditionelles et itératives en Javascript</h1>
+
+    <p>
+        Les conditions
+    </p>
+    <ul>
+        <li>SI...SINON SI...SINON (IF...ELSE IF...ELSE)</li>
+        <li>SELON...CAS...CAS...DEFAUT (SWITCH...CASE...CASE...DEFAULT)</li>
+    </ul>
+
+    <p>
+        Les boucles
+    </p>
+    <ul>
+        <li>POUR (FOR)</li>
+        <li>TANT QUE (WHILE)</li>
+        <li>REPETER JUSQU'A (DO WHILE)</li>
+    </ul>
+
+    <script>
+        // écrire quelquechose dans la page web en dernière position du body
+        document.write("<p>Bonjour</p>");
+
+        var age = prompt("Âge ?");
+
+        // le SI : exécuter des instructions uniquement si une condition est vraie ou fausse
+        if (age >= 18) {
+            // si la condition est vraie, on rentre ici
+            document.write("<p>Vous êtes majeur</p>");
+        }
+        // le else if n'est pas testé que si la condition précédente est fausse
+        else if (age == 17) {
+            document.write("<p>Vous êtes presque majeur</p>")
+        }
+        else {
+            // si la condition est fausse, on rentre ici
+            document.write("<p>Vous êtes mineur</p>");
+        }
+
+        // LE SELON : tester une valeur et prévoir des cas spécifiques
+        boisson = prompt("Boisson ?");
+
+        // ceci peut être remplacé par un selon dans un soucis d'écriture
+        /*
+        if (boisson == "Café") {
+            document.write("<p>Bon choix, voici votre café</p>");
+        }
+        else if (boisson == "Thé") {
+            document.write("<p>Yes sir, Here ur tea</p>");
+        }
+        else if (boisson == "Jus de citron" ) {
+            document.write("<p>C'est parti pour le jus</p>");
+        }
+        else {
+            document.write("Désolé, onapas");
+        }
+         */
+
+        switch (boisson) {
+            case "Café":
+                document.write("<p>Bon choix, voici votre café</p>");
+                break;
+            case "Thé":
+                document.write("<p>Yes sir, Here ur tea</p>");
+                break;
+            case "Jus de citron":
+            case "Jus d'orange":
+                document.write("<p>C'est parti pour le jus</p>");
+                break;
+            default:
+                document.write("Désolé, onapas");
+        }
+
+        // conditions multiples : ET / OU
+        if (1 == 1 && 3 > 5) {
+            // onrentepas car l'un des 2 conditions est fausse
+        }
+
+        if (1 == 1 || 3 > 5) {
+            // onrente car l'une des deux conditions est vraie
+        }
+
+        if (1 == 1 && 3 > 5 || 2 == 2) {
+            // onrente
+        }
+
+        if (1 == 1 || 3 > 5 && 2 == 2) {
+           // onrente
+        }
+
+        if ((1 == 1 || 3 > 5) && 2 == 2) {
+            // onrente
+        }
+
+        // boucles : for, while, do while
+
+        // pour
+        limit = 34 * 45;
+        for (i=0; i < limit; i++) {
+            document.write("Je ne dois pas tricher<br>");
+        }
+
+        // tant que
+        var random = Math.random() * (30 - 1) + 1;
+        while (random < 15) {
+            document.write("Random est inférieur à 15<br>");
+            random = Math.random() * (30 - 1) + 1;
+        }
+
+        // repeter tant que
+        do {
+            var random = Math.random() * (30 - 1) + 1;
+
+            if (random < 15) {
+                document.write("Random est inférieur à 15<br>");
+            }
+        } while (random < 15);
+
+        // POUR : le nb d'itération est connu au début de la boucle
+        // TANT QUE : nb d'itération inconnu, peut être 0
+        // REPETER TANT QUE : nb d'itération inconnu, mais minimum 1
+
+
+
+
+
+    </script>
+</body>
+</html>
