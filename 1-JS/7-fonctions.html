@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fonctions</title>
+
+</head>
+<body>
+    <h1>Fonctions</h1>
+
+    <p>
+        Une fonction, c'est une suite d'instructions à laquelle on donne, afin de pouvoir
+        l'exécuter à plusieurs endroits dans le code sans avoir à la réécrire.
+        Une fonction peut avoir des paramètres d'entrée et une valeur de retour.
+    </p>
+
+    <script>
+        function helloWorld() {
+            alert('Hello!');
+        }
+
+        helloWorld();
+
+        function isOfAge(age) {
+            if (age >= 18) {
+                alert("majeur");
+            }
+            else {
+                alert("mineur");
+            }
+        }
+
+        isOfAge(18);
+        isOfAge(20);
+        isOfAge(13);
+
+        function add(nb1, nb2) {
+            // la variable sum est une variable à portée locale,
+            // elle n'existe que dans cette fonction
+            var sum = nb1 + nb2;
+            return sum;
+        }
+
+        // document.write(sum); ici la variable sum n'existe pas
+
+        var result = add(10, 14);
+
+        if (add(13, 15) > 30) {
+
+        }
+
+        function reverseWord(word) {
+            var reversedWord = "";
+
+            for (i = 0; i < word.length; i++) {
+                reversedWord = word[i] + reversedWord;
+            }
+
+            /*
+                ou dans l'autre sens en décrémentant
+
+                for (i = word.length - 1; i >= 0; i--) {
+                    //reversedWord = reversedWord + word[i] ;
+                    reversedWord += word[i] ;
+                }
+             */
+            word = "salut";
+            return reversedWord;
+        }
+
+        var inversedWord = reverseWord("Bonjour");
+
+        // les paramètres d'entrée sont passés par valeur, ce qui veut dire :
+        var hello = "Coucou";
+        var inversedWord2 = reverseWord(hello);
+
+        document.write(hello); // la variable hello affiche "coucou", et non pas "salut"
+
+        /*
+        Exercice 1
+
+        écrire une fonction qui retourne si oui ou non un mot passé en paramètre
+        est un palindrome
+        kayak est un palindrome
+         */
+
+        /*
+        Exercice 2
+
+        écrire une fonction qui prend un tableau en paramètre, et qui retourne la valeur la plus petite
+        petite qui s'y trouve.
+        Puis utilisez cette fonction dans un script.
+         */
+
+    </script>
+</body>
+</html>

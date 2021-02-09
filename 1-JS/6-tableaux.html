@@ -36,8 +36,46 @@
         notes.push(14);
         notes.push(15);
         notes.push("La république c'est MOI");
-        notes.push(true);
+        notes.push(false);
 
+        // parcourir un tableau
+        for (var i = 0; i < notes.length; i++) {
+            document.write("<p>" + notes[i] + "</p>");
+        }
+
+        // avec un while : moins adapté
+        i = 0;
+        while (i < notes.length) {
+            document.write("<p>" + notes[i] + "</p>");
+            i++;
+        }
+
+        // les foreach en JS
+        notes.forEach(function(el) {
+            console.log(el);
+        });
+
+        for (const element of notes) {
+            console.log(element);
+        }
+
+        // tableau dans tableau
+        var cities = [];
+        // déclaration + initialisation
+        var city = ["Lille", "59000", "1000000"];
+        var city2 = ["Paris", "75000", "2000000"];
+
+        cities.push(city);
+        cities.push(city2);
+
+        // on cumule les indices pour accéder à une entrée d'un tableau
+        // se trouvant dans un tableau
+        document.write( cities[1][1] );
+
+        // en javascript, afficher un tableau ne plante pas :
+        // javascript concatène automatiquelent toutes les entrées
+        // en les séparant par des virgules
+        document.write(cities);
     </script>
 </body>
 </html>
