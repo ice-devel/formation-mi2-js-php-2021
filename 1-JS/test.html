@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+<head>
+    <title>Exercice</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<h1>Calcul de la moyenne de Classe</h1>
+
+<form class="form-note">
+    <input id="note" type="text" name="note">
+    <button id="valider" value="valider">valider</button>
+    <button id="afficher" value="afficher">afficher</button>
+
+
+    <script>
+        var formNote = document.querySelector("#form-note");
+        var valider = document.querySelector("#valider");
+        var afficher = document.querySelector("#afficher");
+        var notes = new Array;
+
+
+        function min(tableau) {
+            var minimum = parseInt(tableau[0]);
+            for (i = 1; i < tableau.length; i++) {
+                if (tableau[i] < parseInt(minimum)) {
+                    minimum = tableau[i];
+                }
+            }
+
+            return minimum;
+        }
+
+        function moyenne(tableau) {
+            var total;
+            for (i = 0; i < tableau.length; i++) {
+                total += parseInt(notes[i]);
+            }
+            moyenne = total / tableau.length;
+            return moyenne;
+        }
+
+        valider.addEventListener('click', function (event) {
+
+                var note = document.querySelector('#note');
+                if (note.value <= 20 && note.value >= 0) {
+                    notes.push(note.value);
+                    alert(notes);
+                } else {
+                    alert("Merci d'entrer une note entre 0 et 20");
+                }
+
+
+            }
+        );
+
+        afficher.addEventListener('click', function (envent) {
+                event.preventDefault();
+                document.write('<p> la moyenne des notes est de : ' + moyenne(notes) + '</p>');
+                document.write('<p> la note la plus basse est de : ' + min(notes) + '</p>');
+
+            }
+        );
+    </script>
+
+</form>
+</body>
+</html>

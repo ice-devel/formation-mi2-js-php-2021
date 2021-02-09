@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manipulation DOM</title>
+    <style>
+    </style>
+</head>
+<body>
+    <h1 id="main-title">Manipulation DOM - Exercice</h1>
+
+    <form id="form-note">
+        <input type="text" id="input-note" />
+        <button type="submit">Enregistrer</button>
+        <button type="button" id="display-result">Afficher</button>
+    </form>
+
+    <p id="error">
+
+    </p>
+
+
+    <p id="result">
+
+    </p>
+
+
+    <script>
+        /*
+            Créer une page web avec un formulaire composé d'un champ texte et de deux boutons
+            On veut demander à l'utilisateur de saisir les notes de ses éléves.
+
+            Quand il rempli le champ et qu'il clique le bouton enregistrer,
+            il faut enregistrer la note dans un tableau JS. Si la note saisie n'est pas
+            comprise entre 0 et 20, il faut lui indiquer une erreur.
+
+           Quand il clique sur le bouton afficher, la moyenne des notes s'affiche
+           ainsi que la note la plus basse qu'il a saisie.
+         */
+        function min(tab) {
+            var minimum = tab[0];
+            for (let i=1;i < tab.length;i++) {
+                if (tab[i] < minimum) {
+                    minimum = tab[i];
+                }
+            }
+
+            return minimum;
+        }
+
+        function avg(tab) {
+            var sum = 0;
+            for (let i=0;i < tab.length;i++) {
+                sum += parseInt(tab[i]);
+            }
+
+            return sum / tab.length;
+        }
+
+        var notes = [];
+
+        var formNote = document.querySelector('#form-note');
+        formNote.addEventListener('submit', function(e) {
+            e.preventDefault();
+            var inputNote = document.querySelector('#input-note');
+            var note = inputNote.value;
+
+            if (note >= 0 && note <= 20) {
+                notes.push(parseInt(note));
+                inputNote.value = "";
+            }
+            else {
+                document.querySelector("#error").textContent = "Veuillez saisir une note correcte";
+            }
+
+            inputNote.focus();
+        });
+
+        var btnDisplay = document.querySelector('#display-result');
+        btnDisplay.addEventListener('click', function() {
+            var str = "Moyenne : " + avg(notes);
+            str += "<br>Minimum : " + min(notes);
+
+            document.querySelector("#result").innerHTML = str;
+        });
+    </script>
+</body>
+</html>
