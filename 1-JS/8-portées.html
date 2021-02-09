@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Portées des variables</title>
+
+</head>
+<body>
+    <h1>Portées des variables</h1>
+
+    <p>
+        Les variables ont une portée : c'est l'espace de code où elle peuvent être utilisées.
+        Deux types de portées en JS : locale / globale.
+    </p>
+
+    <script>
+        var x; // variable globale car déclarée dans le script principal
+        var y;
+
+        x = 5;
+        y = 10;
+        z = 15; // variable globale, même si la déclaration n'a pas été faite explicitement
+
+        function testPortee() {
+            var a; // variable locale : utilisable uniquement dans la fonction où elle est déclarée
+            a = 25;
+            document.write("<br>testPortee a : " + a);
+            document.write("<br>testPortee x : " + x);
+        }
+
+        function testPortee2() {
+            // document.write("<br>testPortee2 a : " + a); // impossible a n'existe pas ici
+            document.write("<br>testPortee2 x : " + x);
+        }
+
+        function testPortee3() {
+            x = 99;
+            document.write("<br>testPortee3 x : " + x);
+        }
+
+        function testPortee4() {
+            var x = 100; // on a redéfini x, dans cette fonction, x a une portée locale
+            // on ne modifie donc pas la variable globale du script principal
+            document.write("<br>testPortee4 x : " + x);
+        }
+
+        function testPortee5() {
+            var x = 150;
+            let y = 200; // variable locale, on touche pas au y globale
+            var z = 250;
+
+            if (x >= 150) {
+                var x = 39; // on écrase la valeur de x à la l48
+                let y = 49; // le y ici est différent du y à la l49
+                let z = 59; // le z ici est différent du z à la l50
+            }
+
+            document.write("<br>testPortee5 x : " + x);
+            document.write("<br>testPortee5 y : " + y);
+            document.write("<br>testPortee5 z : " + z);
+        }
+
+        testPortee();
+        testPortee2();
+        testPortee3();
+        testPortee2();
+        testPortee4();
+        testPortee2();
+        testPortee3();
+        testPortee5();
+        // document.write("testPortee a :" + a); // impossible a n'existe pas ici
+
+        var i = 22;
+
+        for (let i=0; i < 10; i++) {
+            document.write("<br>script principal for i : " + i);
+
+            if (i < 5) {
+                let i = 50;
+                document.write("<br>script principal for if i : " + i);
+            }
+        }
+
+        document.write("<br>script principal i : " + i);
+    </script>
+</body>
+</html>

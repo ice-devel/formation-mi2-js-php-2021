@@ -84,14 +84,124 @@
         kayak est un palindrome
          */
 
+        // création de la fonction !
+        function isPalin(mot) {
+            var reversedWord = reverseWord(mot);
+
+            // V1
+            if (mot == reversedWord) {
+                return true;
+            }
+            else {
+                return false;
+            }
+
+            // V2
+            var isPalindrome = mot == reversedWord;
+            return isPalindrome;
+
+            // V3
+            return mot == reversedWord;
+        }
+
+        // utilisation de la fonction :
+        var word = "Bonjour";
+        if (isPalin(word) == true) {
+            // oui
+        }
+        else {
+            // non
+        }
+
+        // autre possibilité :
+        /*
+        bonjour
+
+        b r
+        o u
+        n o
+        j j
+        o n
+        u o
+        r b
+
+        0 6
+        1 5
+        2 4
+        3 3
+        4 2
+        5 1
+        6 0
+
+        coucou
+
+        c u
+        o o
+        u c
+        c u
+        o o
+        u c
+
+        kayak
+        k k
+        a a
+        y y
+        a a
+        k k
+
+        */
+        var word = "Test";
+
+        isPalin = true;
+        for (i=0; i < word.length-1; i++) {
+            if (word[i] != word[word.length-1-i]) {
+                isPalin = false;
+            }
+        }
+
+        if (isPalin == true) {
+
+        }
+
+
+        function isPalin2(word) {
+            isPalin = true;
+            i = 0;
+            while (i < word.length-1 && isPalin == true) {
+                if (word[i] != word[word.length-1-i]) {
+                    isPalin = false;
+                }
+                i++;
+            }
+
+            return isPalin;
+        }
+
+        var result = isPalin2("kayak");
+
         /*
         Exercice 2
 
-        écrire une fonction qui prend un tableau en paramètre, et qui retourne la valeur la plus petite
-        petite qui s'y trouve.
+        écrire une fonction qui prend un tableau en paramètre, et qui retourne
+        la valeur la plus petite petite qui s'y trouve.
         Puis utilisez cette fonction dans un script.
          */
 
+        // création fonction
+        function min(notes) {
+            var minimum = notes[0];
+            for (i=1;i < notes.length;i++) {
+                if (notes[i] < minimum) {
+                    minimum = notes[i];
+                }
+            }
+
+            return minimum;
+        }
+
+        // utilisation fonction
+        var notes = [13, 17, 10, 14];
+        var valMin = min(notes);
     </script>
 </body>
 </html>
