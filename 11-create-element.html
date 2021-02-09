@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manipulation DOM</title>
+    <style>
+    </style>
+</head>
+<body>
+    <h1 id="main-title">Manipulation DOM - Création d'éléments</h1>
+
+    <button id="btn-div">Créer un div</button>
+    <button id="btn-img">Créer une image</button>
+
+    <div id="parent">
+
+    </div>
+
+    <script>
+        function createDiv() {
+            // création en mémoire d'un élément HTML div
+            let newDiv = document.createElement("div");
+
+            // mettre des valeurs pour les propriétés qui nous intéresse
+            newDiv.style.border = "1px solid black";
+            newDiv.style.padding = "20px";
+            newDiv.style.marginRight = "20px";
+            newDiv.style.color = "blue";
+            newDiv.style.width = "100px";
+            newDiv.style.height = "100px";
+            newDiv.style.display = "inline-block";
+
+            // insérer le nouvel élément dans l'élement #parent
+            let divParent = document.querySelector('#parent');
+            divParent.appendChild(newDiv);
+
+            newDiv.textContent = divParent.children.length;
+        }
+
+        var btnDiv = document.querySelector('#btn-div');
+        btnDiv.addEventListener('click', createDiv);
+
+        var btnImg = document.querySelector('#btn-img');
+        btnImg.addEventListener('click', function() {
+            // création en mémoire d'un élément HTML img
+            let newImg = document.createElement("img");
+            // setter les propriétés
+            newImg.src = "https://www.lesfruitsetlegumesfrais.com/_upload/cache/ressources/produits/tomate/tomate_-_copie_346_346_filled.jpg";
+            newImg.alt = "Image d'une super tomate";
+            // insérer
+            document.body.appendChild(newImg);
+        });
+    </script>
+</body>
+</html>
