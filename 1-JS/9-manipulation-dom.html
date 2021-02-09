@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manipulation DOM</title>
+    <style>
+    </style>
+</head>
+<body>
+    <h1 id="main-title">Manipulation DOM</h1>
+
+    <p class="bold">
+        DOM : Document Object Model
+    </p>
+
+    <ul>
+        <li class="italic">Sélecteur ID</li>
+        <li>Sélecteur classe</li>
+        <li class="italic">Sélecteur tag</li>
+    </ul>
+
+    <form id="form-hello" action="" method="get">
+        <input type="text" />
+        <button>Let's go!</button>
+    </form>
+
+    <script>
+        // sélectionner des éléments en JS
+
+        /*
+            Anciennes méthodes
+         */
+        var mainTitle = document.getElementById("main-title");
+        var boldeds = document.getElementsByClassName("bold");
+        var lis = document.getElementsByTagName("li");
+
+        // les mêmes fonctionnalités mais avec querySelector
+        // renvoie 1 element (le premier si plusieurs correspondances) / ou null si aucun ne correspond
+        var mainTitle = document.querySelector("#main-title");
+
+        // renvoie un tableau d'élément (0, 1 ou n éléments)
+        var boldeds = document.querySelectorAll(".bold");
+        var lis = document.querySelectorAll("li");
+
+        // intéragir avec le style d'un élement
+        mainTitle.style.color = "green";
+        mainTitle.style.fontSize = "50px";
+
+        // lis.style.textDecoration : NO BECAUSE on ne met pas du style sur un tableau JS mais sur les éléments
+        // HTML qui s'y trouvent
+        lis.forEach(function(li) {
+            li.style.textDecoration = "underline";
+        });
+
+        // for...of au lieu de forEach (EXACTEMENT PAREIL)
+        for (const elementBolded of boldeds) {
+            elementBolded.style.fontWeight = "bold";
+        }
+
+        /**
+         * Intéraction avec les événements
+         *  - I : élément qui écoute
+         *  - II : fonction qui se déclenche lorsque l'évenement se produit
+         */
+        function sayHello() {
+            alert('hello');
+        }
+
+        mainTitle.addEventListener('click', sayHello);
+        mainTitle.addEventListener('click', function() {
+            mainTitle.style.color = "red";
+        });
+
+        lis.forEach(function(li) {
+            li.addEventListener('mouseover', function(event) {
+                var li = event.currentTarget;
+                li.remove();
+            });
+        });
+
+        // écouter la soumission d'un formulaire
+        var form = document.querySelector("#form-hello");
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            var input = form.querySelector('input');
+            var name = input.value;
+            alert('Bonjour ' + name);
+        });
+    </script>
+</body>
+</html>
