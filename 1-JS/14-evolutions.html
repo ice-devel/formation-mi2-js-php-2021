@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css">
+    <style>
+    </style>
+</head>
+<body>
+    <h1 id="main-title" data-enabled="val">Evolutions JS</h1>
+
+    <ul>
+        <li>Au départ ça devait être livescript, puis netscape a changé au dernier moment pour javascript</li>
+        <li>ECMAScript : spécifications</li>
+        <li>Javascript est basé sur ces spécs, JS est une implémentation</li>
+        <li>ES1 1997, ES4 RIP, ES5, ES6 (2015), ES11 2020</li>
+        <li>JS est orienté prototype</li>
+    </ul>
+
+    <script>
+        // Nouveautés ES5
+        var test = [];
+        Array.isArray(test); // return true
+        Array.isArray("test") // return false
+
+        var cities = ['Lille', 'PARIS'];
+        cities.forEach(function(element, index) {
+            console.log(element);
+            console.log(index);
+        });
+
+        // map, filter, reduce, every, some, indexOf
+        var notes = [14, 16, 5, 19];
+        notes.indexOf(14); // return 0
+        notes.indexOf(20); // return -1
+
+        notes.every(20); // return false
+        notes.some(16); // return true
+
+        // filter : filtrer le tableau pour ne garder que les entrées correspondant à la condition
+        var notes = notes.filter(function(element) {
+            return element > 15;
+        });
+
+        // map : appliquer un traitement sur chacune des entrées
+        var notes = notes.map(function(element) {
+            return element + 1;
+        });
+
+        Date.now(); // nb de ms depuis 1970
+
+        // ES6
+        // constante
+        const a = 10;
+
+        // let
+        var b = 10;
+        if (true) {
+            let b = 13;
+        }
+
+        // for of : alternative foreach
+        var tabs = ["toto", "tata"];
+        for (const el of tabs) {
+            console.log(el);
+        }
+
+        // paramètres facultatifs de fonction
+        // avant
+        function test(param) {
+            // mettre une valeur par défaut
+            if (typeof param == "undefined") param = "coucou";
+        }
+
+        test();
+        test(15);
+
+        // après
+        function test2(param="coucou") {
+
+        }
+
+        // fonctions fléchées
+        var fct = function(param) {
+            return 10 + param;
+        }
+        fct();
+
+        var fct2 = param => 10 + param;
+        fct2(14);
+    </script>
+</body>
+</html>
