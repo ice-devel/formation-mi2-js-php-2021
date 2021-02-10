@@ -11,9 +11,9 @@
 
     <form action="" method="get" >
         <p>
-            <input type="radio" name="civility" id="civ-mme"/>
+            <input type="radio" name="civility" id="civ-mme" value="mme"/>
             <label for="civ-mme">Mme</label>
-            <input type="radio" name="civility" id="civ-m"/>
+            <input type="radio" name="civility" id="civ-m" value="m"/>
             <label for="civ-m">M.</label>
         </p>
 
@@ -29,19 +29,19 @@
 
         <p>
             <label>Pays :</label>
-            <select>
+            <select id="input-country">
                 <option></option>
-                <option>France</option>
-                <option>Belgique</option>
-                <option>Espagne</option>
+                <option value="1">France</option>
+                <option value="2">Belgique</option>
+                <option value="3">Espagne</option>
             </select>
         </p>
 
         <p>
-            <label>Language :</label>
-            <select multiple>
+            <label>Langages :</label>
+            <select multiple id="input-language">
                 <option></option>
-                <option>PHP</option>
+                <option value="1">PHP</option>
                 <option>Java</option>
                 <option>Javascript</option>
                 <option>C#</option>
@@ -50,12 +50,7 @@
 
         <p>
             <label>Couleur préférée</label>
-            <input type="color" />
-        </p>
-
-        <p>
-            <input type="checkbox" id="input-rglm" />
-            <label for="input-rglm">Acceptez le réglement</label>
+            <input type="color" id="input-color" />
         </p>
 
         <p>
@@ -64,11 +59,63 @@
         </p>
 
         <p>
+            <input type="checkbox" id="input-rglm" />
+            <label for="input-rglm">Acceptez le réglement</label>
+        </p>
+
+        <p>
             <input type="submit" value="C'est tipar"/>
         </p>
     </form>
 
     <script>
+        // récupérer le formulaire
+        let form = document.querySelector("form");
+
+        // écouter la soumission du formulaire
+        form.addEventListener('submit', function(e) {
+            // empêcher le formulaire de recharger la page
+            e.preventDefault();
+
+            // récupération des champs
+            let inputCivility = document.querySelector("input[name='civility']:checked");
+            let inputName = document.querySelector("#input-name");
+            let inputEmail = document.querySelector("#input-email");
+            let inputCountry = document.querySelector("#input-country");
+            //let inputLanguage = document.querySelector("#input-language");
+            let inputColor = document.querySelector("#input-color");
+            let inputDesc = document.querySelector("#txt-desc");
+            let inputRglm = document.querySelector("#input-rglm");
+
+            // récupération des valeurs
+            let civility = inputCivility != null ? inputCivility.value : null;
+            let name = inputName.value;
+            let email = inputEmail.value;
+            let country = inputCountry.value;
+            let languages = document.querySelectorAll("#input-language option:checked");
+            let color = inputColor.value;
+            let desc = inputDesc.value;
+            let rglm = inputRglm.checked;
+
+            // vérification des valeurs
+            let errors = [];
+
+            if (civility == null || civility != "m" && civility != "mme") {
+                errors.push("Veuillez sélectionner une civilité");
+            }
+
+            // envoyer les données au serveur
+            if (errors.length > 0) {
+                // affichage des erreurs
+                for (const error of errors) {
+                    alert(error);
+                }
+            }
+            else {
+                // envoi
+                alert('formulaire envoyé')
+            }
+        });
 
     </script>
 </body>
