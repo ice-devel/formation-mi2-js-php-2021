@@ -7,7 +7,7 @@
     </style>
 </head>
 <body>
-    <h1 id="main-title">jQuery</h1>
+    <h1 id="main-title" data-enabled="val">jQuery</h1>
 
     <ul>
         <li>library / framework</li>
@@ -72,11 +72,56 @@
         /*
             Setter la valeur d'un champ
          */
+        // js
         var inputName = document.querySelector("#input-name");
         // inputName.value = "Test";
 
+        // jquery
         $("#input-name").val("Test");
 
+        // obtenir la valeur d'un attribut
+        // js
+        // document.querySelector('#element').getAttribute('data-enabled')
+        // document.querySelector('#element').setAttribute('src', 'https://blabla')
+        // document.querySelector('#element').dataset.enabled = "test";
+
+        // jquery
+        $("#element").attr('src', 'https://');
+
+        $("#element").data('enabled', 'trst')
+        $("#element").data('enabled');
+        $("#element").prop('checked', true);
+        $("form").attr('action');
+
+        // events
+        // js
+        var mainTitle = document.querySelector("#main-title");
+        mainTitle.addEventListener('click', function() {});
+
+        // jquery
+        $("#main-title").on('click', function() {});
+
+        // textContent / innerHTML
+        $("li").on('mouseover', function() {
+            $(this).css('text-decoration', 'underline');
+        });
+
+        // création élément
+        var link = $("<a>");
+        link.css('color', 'green');
+        link.attr('href', 'https://topachat.com');
+        link.text("Ici go on topachat");
+        $("body").append(link);
+
+        // effects
+        var mainTitle = document.querySelector("#main-title");
+        // mainTitle.style.display = "none";
+
+        $("#main-title").hide();
+        $("#main-title").show();
+
+        $("#main-title").fadeOut();
+        $("#main-title").fadeIn();
     </script>
 </body>
 </html>
