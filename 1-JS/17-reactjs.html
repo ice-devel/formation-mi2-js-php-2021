@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajax</title>
+    <style>
+    </style>
+</head>
+<body>
+    <div id="container-h1">
+
+    </div>
+
+    <div id="container-div">
+
+    </div>
+
+    <div id="container-toggle">
+
+    </div>
+
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+        /*
+        const h1 = React.createElement(
+            'h1',
+            {className: 'monh1'},
+            'Mon H1'
+        )
+        */
+
+        const h1 = (
+            <h1 className="monh1">
+                Mon H1
+            </h1>
+        );
+
+        ReactDOM.render(h1, document.querySelector('#container-h1'));
+
+        function Div(props) {
+            return (
+                <div>
+                    {props.text}
+                </div>
+            )
+        }
+
+        ReactDOM.render(<Div text={"coucou"} />, document.querySelector('#container-div'));
+
+        class Toggle extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {isToggleOn: true};
+
+                // Cette liaison est nécéssaire afin de permettre
+                // l'utilisation de `this` dans la fonction de rappel.
+                this.handleClick = this.handleClick.bind(this);
+            }
+
+            handleClick() {
+                this.setState(state => ({
+                    isToggleOn: !state.isToggleOn
+                }));
+            }
+
+            render() {
+                return (
+                    <button onClick={this.handleClick}>
+                        {this.state.isToggleOn ? 'ON' : 'OFF'}
+                    </button>
+                );
+            }
+        }
+
+        ReactDOM.render(
+            <Toggle />,
+            document.getElementById('container-toggle')
+        );
+    </script>
+</body>
+</html>
