@@ -92,7 +92,7 @@
             // on lance le calcul : dans bloc try catch pour attraper les erreurs potentielles
             // dans l'opération arithmétique (deux opérateurs d'affilée, etc.)
             try {
-                 result = eval(currentOperation);
+                 result = calculate(currentOperation);
             }
             catch(e) {
                 error = true;
@@ -112,6 +112,50 @@
 
         }
     });
+
+    function calculate(operation) {
+        let numbers = [];
+        let operators = [];
+        let currentNumber = "";
+
+        // décomposition des élements du calcul
+        for (const value of operation) {
+            if (value != "+" && value != "-" && value != "*" && value != "/") {
+                currentNumber += value;
+            }
+            else {
+                numbers.push(currentNumber);
+                currentNumber = "";
+                operators.push(value);
+            }
+        }
+
+        numbers.push(currentNumber);
+
+        // calcul
+        let currentResult = parseFloat(numbers[0]);
+        for (let i = 1; i < numbers.length; i++) {
+            currentNumber = parseFloat(numbers[i]);
+            let currentOperator = operators[i-1];
+
+            switch (currentOperator) {
+                case "+":
+                    currentResult = currentResult + currentNumber;
+                    break;
+                case "-":
+                    currentResult = currentResult - currentNumber;
+                    break;
+                case "*":
+                    currentResult = currentResult * currentNumber;
+                    break;
+                case "/":
+                    currentResult = currentResult / currentNumber;
+                    break;
+            }
+        }
+
+        return currentResult;
+    }
 
     function addHistoryEntry(operation, result) {
         let ul = containerResult.querySelector('ul');
