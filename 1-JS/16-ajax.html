@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajax</title>
+    <style>
+    </style>
+</head>
+<body>
+    <h1 id="main-title">Ajax</h1>
+
+    <p>Users inscrits</p>
+    <button id="start-ajax">Lancer ajax</button>
+    <button id="start-ajax-fetch">Lancer ajax fetch</button>
+    <ul>
+
+    </ul>
+
+    <script>
+        document.querySelector("#start-ajax").addEventListener('click', function() {
+            ajax("GET", "https://httpbin.org/get", new FormData(), displayUsers);
+        });
+
+        document.querySelector("#start-ajax-fetch").addEventListener('click', function() {
+            ajaxFetch();
+        });
+
+        function displayUsers(response) {
+            // affichage des users
+        }
+
+        function ajax(method, url, data, callback) {
+            var xmlHttp = new XMLHttpRequest();
+
+            xmlHttp.onreadystatechange = function() {
+                if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+                    var result = xmlHttp.responseText;
+                    console.log(result);
+                    callback(result);
+                }
+            }
+
+            xmlHttp.open(method, url);
+            xmlHttp.send(data);
+        }
+
+        function ajaxFetch(method, url, data, callback) {
+            // Avec l'API FETCH
+           fetch("https://httpbin.org/get", {'method': 'POST', 'body': data})
+                .then(function(response) {
+                    return response.json();
+                })
+                .catch(function(error) {
+                    console.log("Error " + error);
+                })
+
+                .then(function(json) {
+                    console.log("Json " + json);
+                })
+                .catch(function(error) {
+                    console.log("Error json " + error);
+                })
+            ;
+        }
+
+
+
+    </script>
+</body>
+</html>

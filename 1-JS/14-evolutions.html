@@ -36,8 +36,8 @@
         notes.indexOf(14); // return 0
         notes.indexOf(20); // return -1
 
-        notes.every(20); // return false
-        notes.some(16); // return true
+        notes.every(function(element) { return element == 20;}); // return false
+        notes.some(function(element) { return element == 20;}); // return true
 
         // filter : filtrer le tableau pour ne garder que les entrées correspondant à la condition
         var notes = notes.filter(function(element) {
@@ -69,13 +69,13 @@
 
         // paramètres facultatifs de fonction
         // avant
-        function test(param) {
+        function testfct(param) {
             // mettre une valeur par défaut
             if (typeof param == "undefined") param = "coucou";
         }
 
-        test();
-        test(15);
+        testfct();
+        testfct(15);
 
         // après
         function test2(param="coucou") {
@@ -90,6 +90,67 @@
 
         var fct2 = param => 10 + param;
         fct2(14);
+
+        var fct3 = (param1, param2) => {
+            param *= param;
+            return param + param2;
+        }
+
+        var fct4 = () => "coucou";
+
+        // Classe d'objet
+        var objetLitteral = {
+            property1: 14,
+            property2: "test",
+            fct: function() {}
+        }
+
+        // avant : ceci est une "classe"
+        function User(name, email) {
+            this.name = name;
+            this.email = email;
+            this.sayHello = function() {
+                console.log("Le user " + this.name + " dit bonjour");
+            };
+        }
+
+        var user = new User("jeanmich", "jm@mail.fr");
+        console.log(user);
+        user.sayHello();
+
+        // depuis ES6
+        class User2 {
+            constructor(name, email) {
+                this.name = name;
+                this.email = name;
+            }
+
+            sayHello() {
+                console.log("Le user2 " + this.name + " dit bonjour");
+            }
+        }
+
+        var user2 = new User2("jeanmich2", "jm@mail.fr");
+        console.log(user2);
+        user2.sayHello();
+
+        // nullsafe operator
+        // à la place
+        if (user2 != null) {
+            user2.sayHello();
+        }
+
+        // on peut faire
+        user2?.sayHello();
+
+        // ES11
+        var name = user2.name != null ? user2.name : "Nom par défaut";
+
+        // nullish coalescing
+        var name = user2.name ?? "Nom par défaut";
+
+
+
     </script>
 </body>
 </html>
