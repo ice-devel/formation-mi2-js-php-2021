@@ -44,7 +44,7 @@
             foreach ($users as $user) {
                 echo "
                 <tr>
-                    <td>".$user['name']."</td>
+                    <td>{$user['name']}</td>
                     <td>".$user['email']."</td>
                     <td>".getAge($user['birthdate'])."</td>
                 </tr>";
