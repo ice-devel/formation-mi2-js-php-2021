@@ -57,9 +57,46 @@
         $phone = filter_input(INPUT_POST, 'phone');
 
         // 3 - vérification
+        // (nom est obligatoire, et min. 3 caractères
+        // email obligatoire et format email
+        // telephone facultatif, format 10 chiffres, commençant par un zéro
+        $errors = [];
+
+        //if ($lastname == "" || mb_strlen($lastname) < 3) {
+        if (mb_strlen($lastname) < 3) {
+            $errors['lastname'] = "Veuillez saisir votre nom correctement";
+        }
+
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $errors['email'] = "Veuillez saisir votre email correctement";
+        }
+
+        if ($phone != "" && !preg_match("/^0[0-9]{9}$/", $phone)) {
+            $errors['phone'] = "Veuillez saisir votre téléphone correctement";
+        }
+
+        // 4 - si pas d'erreur : enregistrement en bdd
+        if (empty($errors)) {
+            // pas d'erreur : bdd
+            // redirection vers page de confirmation par exemple
+        }
+        else {
+            $message = "Désolé y'a des erreurs";
+        }
     }
     ?>
 
+    <?php
+        if (isset($message)) {
+            echo "<p style='color:red'>$message</p>";
+
+            echo "<ul>";
+            foreach ($errors as $error) {
+                echo "<li>$error</li>";
+            }
+            echo "</ul>";
+        }
+    ?>
     <p>Envoyer des données POST depuis un formulaire</p>
     <form method="post" action="">
         <input type="text" name="lastname" />
