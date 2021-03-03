@@ -29,6 +29,9 @@
     $countries = ["France", "Norvège", "Japon", "Maroc", "Pays-Bas"];
 
     // formulaire soumis ?
+    $pseudo = "";
+    $zipcode = "";
+    $country = "";
     if (isset($_POST['btn-register'])) {
         // récupération des valeurs
         $pseudo = filter_input(INPUT_POST, 'pseudo');
@@ -73,13 +76,14 @@
         }
     ?>
     <form action="" method="post">
-        <input type="text" placeholder="Pseudo" name="pseudo" />
-        <input type="text" placeholder="Code postal" name="zipcode" />
+        <input type="text" placeholder="Pseudo" name="pseudo" value="<?php echo $pseudo; ?>"/>
+        <input type="text" placeholder="Code postal" name="zipcode" value="<?php echo $zipcode; ?>"/>
         <select name="country">
             <option></option>
             <?php
-                foreach ($countries as $country) {
-                    echo "<option>$country</option>";
+                foreach ($countries as $c) {
+                    $selected = $c == $country ? "selected" : "";
+                    echo "<option $selected>$c</option>";
                 }
             ?>
         </select>
