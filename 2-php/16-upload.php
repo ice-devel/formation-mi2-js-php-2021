@@ -54,7 +54,7 @@
     ?>
 
     <p>
-        Configuration PHP dans le fichier php.ini :
+        Configuration PHP dans le fichier php.ini, s'applique au niveau global, au dessus des vérifications du code :
         - upload_max_filesize : taille maximum autorisée pour chaque fichier uploadé
         - post_max_size : taille totale de la requête POST
     </p>
