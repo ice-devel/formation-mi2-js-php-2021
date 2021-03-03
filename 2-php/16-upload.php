@@ -16,6 +16,7 @@
             $picture = $_FILES['picture'];
 
             // un champ type file = 5 informations récupérées par PHP
+            // https://www.php.net/manual/fr/features.file-upload.post-method.php
             $filename = $picture['name'];
             $type = $picture['type'];
             $tmpName = $picture['tmp_name'];
@@ -40,7 +41,7 @@
             }
 
             if (empty($errors)) {
-                $fname = uniqid().$filename;
+                $fname = uniqid("_monsite", true).$filename;
                 // déplacer le fichier qui se trouve dans le dossier tmp du serveur web
                 // vers le dossier souhaité de notre site
                 move_uploaded_file($tmpName, "uploads/".$fname);
