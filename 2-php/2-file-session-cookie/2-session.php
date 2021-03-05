@@ -8,6 +8,15 @@
      */
     session_start();
 
+    if (isset($_GET['logout'])) {
+        session_destroy();
+        // on peut supprimer les clés dans le tableau session pour le reste du script
+        // unset($_SESSION['logged']);
+        // ou alors, on redirige
+        header("Location: 2-session.php");
+        exit;
+    }
+
     if (isset($_POST['username'])) {
         $username = filter_input(INPUT_POST, 'username');
         $password = filter_input(INPUT_POST, 'password');
@@ -20,8 +29,10 @@
     }
 
     if (isset($_SESSION['logged'])) {
-        echo "Bienvenue ! Vous êtes déjà connecté";
+        echo "Bienvenue ! Vous êtes déjà connecté <a href='?logout'>Déconnexion</a>";
     }
+
+
 ?>
 
 
