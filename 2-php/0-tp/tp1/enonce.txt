@@ -1,0 +1,84 @@
+Exercice 1 :
+
+a) Déclarer et initialiser :
+
+- une variable de type chaine de caractères avec la valeur 1
+
+- une variable de type entier avec la valeur 1
+
+- une variable de type boolean avec la valeur vrai
+
+
+b) comparer ces variables :
+
+- la chaine avec l'entier, en utilisant l'opérateur qui fera que php les considère équivalentes
+
+- la chaine avec l'entier, en utilisant l'opérateur qui fera que php les considère différentes
+
+
+c) - stocker ces trois variables dans une variable de type tableau
+
+utiliser une boucle pour parcourir ce tableau
+utiliser la fonction var_dump pour afficher à l'écran chaque entrée
+
+Exercice 2 :
+
+créer une fonction qui prend un paramètre obligatoire, et un autre facultatif. Le premier paramètre sera une chaine et le deuxième un entier
+la fonction doit trouver le nombre de caractères du premier paramètre
+puis elle doit retourner le nombre de caractères manquant pour arriver au nombre défini par le second paramètre.
+Ce second paramètre doit avoir pour valeur par défaut 100
+si le nombre de caractères du premier paramètre est égal ou supérieure à ce second paramètre, la fonction doit renvoyer 0
+utiliser cette fonction dans un script en affichant : Il manque [x] caractères pour que la chaine [chaine] arrive à [y] catactères.
+Exemple : si le paramètre 1 a pour valeur “coucou”, et que le deuxième a pour valeur 100; la fonction doit renvoyer 94 car la longueur de coucou est 6 et qu’il manque donc 94 caractères pour arriver à 100.
+
+
+Exercice 3 :
+
+créer une page web avec trois liens, et un div
+chaque lien doit pointer vers cette même page, mais en passant le paramètre GET "numero" (vous pouvez passer des paramètres GET grâce à un lien : il suffit de mettre dans l’attribut href quelque-chose comme monlien.fr?param=test). Pour le premier lien, la valeur du paramètre “numero” doit être "page1", pour le deuxième lien : "page2", pour le troisième “page3”
+lors du clic sur un des liens, le paramètre GET  doit être récupérée en PHP lors du rechargement de la page, et sa valeur affichée dans le div
+voici un array contenant des articles : vous pouvez le copier dans votre code : il faut ensuite afficher les articles dans la page. Mais il ne faut afficher que 2 articles par page : les deux premiers si le parametre GET vaut “page1”, les deux suivants s’il vaut “page2”, et les deux derniers s’il vaut “page3”
+si le paramètre GET “numero” n’existe pas, il faut considérer qu’on est sur la page 1
+$articles = [
+
+['nom' => 'Titre 1', 'description' => 'Description de article 1'],
+
+['nom' => 'Titre 2', 'description' => 'Description de article 2'],
+
+['nom' => 'Titre 3', 'description' => 'Description de article 3'],
+
+['nom' => 'Titre 4', 'description' => 'Description de article 4'],
+
+['nom' => 'Titre 5', 'description' => 'Description de article 5'],
+
+['nom' => 'Titre 6', 'description' => 'Description de article 6'],
+
+];
+
+
+
+Exercice 4:
+
+a) Créer un formulaire html, soumis en POST, avec ces champs:
+
+- champ text : nom - obligatoire - trois caractères minimum
+
+- champ text : date de naissance - obligatoire - format date français
+
+- champ email : email - obligatoire - format email
+
+- champ text : code postal - non obligatoire - format 5 chiffres
+
+- champ text : telephone - non obligatoire - format 10 chiffres
+
+
+b) forcer la validation html5 côté client avec les attributs adéquats (à vous de trouver comment faire pour 3 caractères minimum et format 5 chiffres par exemple, indice : les attributs à utiliser sont “required” et “pattern”)
+
+
+c) à la soumission du formulaire, vous devez :
+
+- récupérer les différentes valeurs :  il faut avoir défini l’attribut html “name” pour chacun des champs. On peut donc les récupérer côté serveur en PHP avec la variable globale POST.
+
+- vérifier si les valeurs sont valides en faisant les mêmes vérifications qui ont été faites avec les attributs HTML5 (obligatoire, pattern), mais côté serveur en PHP.
+
+- s’il y a des erreurs, il faut demander à l’utilisateur de saisir à nouveau en reprenant les valeurs saisies précédemment, sinon afficher le message “Merci [Nom], vous êtes bien inscrit”.
