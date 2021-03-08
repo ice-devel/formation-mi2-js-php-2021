@@ -45,6 +45,21 @@ $dynamicPlayers = $statement->fetchAll(PDO::FETCH_ASSOC);
 <body>
     <h1>Liste des joueurs</h1>
 
+    <?php
+        if (isset($_GET['delete'])) {
+            $code = $_GET['delete'];
+            switch ($code) {
+                case 0:
+                    echo "La requête a planté";
+                    break;
+                case -1:
+                    echo "Accès refusé";
+                    break;
+                default:
+                    echo "Le player $code a bien été supprimé";
+            }
+        }
+    ?>
     <table>
         <thead>
             <tr>
@@ -66,7 +81,7 @@ $dynamicPlayers = $statement->fetchAll(PDO::FETCH_ASSOC);
                         <td>{$player['zipcode']}</td>
                         <td>
                             <a href='?id={$player['id']}'>Modifier</a>
-                            <a href='?id={$player['id']}'>Suppression</a>
+                            <a href='6-delete.php?id={$player['id']}'>Suppression</a>
                         </td>
                     </tr>";
             }
