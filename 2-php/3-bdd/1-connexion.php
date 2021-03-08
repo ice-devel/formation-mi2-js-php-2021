@@ -43,3 +43,59 @@
         $user['name'];
     }
 
+    /*
+     * CRUD : requête de données en SQL
+     */
+
+    /*
+     * Sélectionner des données : SELECT
+     *
+     * SELECT *
+     * (SELECT id, name, email)
+     * FROM table_name
+     * WHERE conditions
+     * GROUP BY (HAVING)
+     * LIMIT 2
+     *
+     */
+
+    /*
+     * Fonctions scalaires / agrégation
+     *
+     * Scalaires : traitement sur une colonne
+     * UPPER LOWER LENGTH CEIL FLOOR ROUND(d, n) YEAR MONTH DAY HOUR MINUTE SECOND
+     * SELECT UPPER(name) FROM player;
+     *
+     * Agrégation : pour obtenir un seul enregistrement à partir de plusieurs
+     * COUNT, SUM, AVG, MIN, MAX
+     *
+     * SELECT MAX(points) FROM player
+     */
+
+    /*
+     * UPDATE table_name
+     * SET points = 50, zipcode = 59000
+     * WHERE name LIKE 't%'
+     */
+
+    /*
+     * INSERT INTO table VALUES (value1, value2, value3)
+     * INSERT INTO table (column1, column2) VALUES (value1, value2)
+     */
+
+    /*
+     * DELETE FROM table_name
+     * WHERE conditions
+     */
+
+    /*
+     * Opération logiques et comparaison
+     * AND / OR
+     *
+     * =, >, <, !=
+     * BETWEEN value1 AND value 2
+     * LIKE 'chaine%_'
+     * IN / NOT IN (value1, value2, etc.)
+     *
+     */
+
