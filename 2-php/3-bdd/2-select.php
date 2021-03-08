@@ -3,7 +3,7 @@
 $pdo = new PDO("mysql:host=localhost;dbname=formation_202103;charset=utf8", "root", "");
 
 // 2eme étape : requête
-$query = "SELECT name, score, zipcode, team_id FROM player";
+$query = "SELECT id, name, score, zipcode, team_id FROM player";
 $statement = $pdo->query($query);
 
 // transforme la ressource en array
@@ -52,6 +52,7 @@ $dynamicPlayers = $statement->fetchAll(PDO::FETCH_ASSOC);
                 <th>Points</th>
                 <th>Team</th>
                 <th>Code postal</th>
+                <th>Actions</th>
             </tr>
         </thead>
 
@@ -63,6 +64,10 @@ $dynamicPlayers = $statement->fetchAll(PDO::FETCH_ASSOC);
                         <td>{$player['score']}</td>
                         <td>{$player['team_id']}</td>
                         <td>{$player['zipcode']}</td>
+                        <td>
+                            <a href='?id={$player['id']}'>Modifier</a>
+                            <a href='?id={$player['id']}'>Suppression</a>
+                        </td>
                     </tr>";
             }
             ?>
