@@ -33,7 +33,7 @@
     $name = $player['name'];
     $email = $player['email'];
     $zipcode = $player['zipcode'];
-    $team = $player['team'];
+    $team = $player['team_id'];
     // est-ce que le formulaire est soumis ?
     if (isset($_POST['btn_submit'])) {
         $name = filter_input(INPUT_POST, 'name');
