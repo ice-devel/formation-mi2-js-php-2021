@@ -7,7 +7,7 @@
      *  - date création
      *  - code produit (AAA444)
      *  - nom du produit (mini 5 caractères)
-     *  - description (où il sera d'enregistrer du html)
+     *  - description (où il sera possible d'enregistrer du html)
      *  - prix : 6 chiffres au total, dont 2 après la virgule
      *  - catégorie : reférence à une catégorie
      *
