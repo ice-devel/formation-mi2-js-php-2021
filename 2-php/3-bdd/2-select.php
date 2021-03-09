@@ -80,7 +80,7 @@ $dynamicPlayers = $statement->fetchAll(PDO::FETCH_ASSOC);
                         <td>{$player['team_id']}</td>
                         <td>{$player['zipcode']}</td>
                         <td>
-                            <a href='?id={$player['id']}'>Modifier</a>
+                            <a href='7-update.php?id={$player['id']}'>Modifier</a>
                             <a href='6-delete.php?id={$player['id']}'>Suppression</a>
                         </td>
                     </tr>";

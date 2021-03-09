@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>essai</title>
+
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/black-tie/jquery-ui.css">
+
+</head>
+<body>
+<input name="cp" id="cp" type="text" placeholder="CP">
+<input name="ville" id="ville" type="text" placeholder="Ville">
+<input name="adresse" id="adresse" type="text" placeholder="Adresse">
+<input name="x" id="x" type="text" placeholder="x">
+<input name="y" id="y" type="text" placeholder="y">
+
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script>
+    document.getElementById('cp').addEventListener("keypress", function (ev) {
+        console.log($("input[name='cp']").val())
+    });
+    $("#cp").autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                url: "https://api-adresse.data.gouv.fr/search/?q=" + $("input[name='cp']").val() + '&type=municipality&autocomplete=1',
+                data: {q: request.term},
+                dataType: "json",
+                success: function (data) {
+                    response($.map(data.features, function (item) {
+                        return {
+                            label: item.properties.postcode + " - " + item.properties.city,
+                            city: item.properties.city,
+                            value: item.properties.postcode
+                        };
+                    }));
+                }
+            });
+        },
+// On remplit aussi la ville
+        select: function (event, ui) {
+            $('#ville').val(ui.item.city);
+        }
+    });
+    $("#ville").autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                url: "https://api-adresse.data.gouv.fr/search/?city=" + $("input[name='ville']").val(),
+                data: {q: request.term},
+                dataType: "json",
+                success: function (data) {
+                    var cities = [];
+                    response($.map(data.features, function (item) {
+// Ici on est obligé d'ajouter les villes dans un array pour ne pas avoir plusieurs fois la même
+                        if ($.inArray(item.properties.postcode, cities) == -1) {
+                            cities.push(item.properties.postcode);
+                            return {
+                                label: item.properties.postcode + " - " + item.properties.city,
+                                postcode: item.properties.postcode,
+                                value: item.properties.city
+                            };
+                        }
+                    }));
+                }
+            });
+        },
+// On remplit aussi le CP
+        select: function (event, ui) {
+            console.log(ui.item.postcode);
+            $('#cp').val(ui.item.postcode);
+        }
+    });
+    $("#adresse").autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                url: "https://api-adresse.data.gouv.fr/search/?postcode=" + $("input[name='cp']").val(),
+                data: {q: request.term},
+                dataType: "json",
+                success: function (data) {
+                    response($.map(data.features, function (item) {
+                        console.log(item);
+                        return {
+                            label: item.properties.name,
+                            x: item.geometry.coordinates[0],
+                            value: item.properties.name
+                        };
+                    }));
+                }
+            });
+        },
+        select: function (event, ui) {
+            $('#x').val(ui.item.x);
+        }
+    });
+</script>
+
+</body>
+</html>
