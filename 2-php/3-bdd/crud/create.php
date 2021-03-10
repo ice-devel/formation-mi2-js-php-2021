@@ -58,6 +58,7 @@
 
             if ($result) {
                 // message de succes ou redirection
+
                 $message = "Succès";
                 header('Location:readall.php?insert=success');
             }

@@ -2,15 +2,30 @@
 /*
  * Controller : point d'entrée de la requête
  */
-session_start();
+$id = filter_input(INPUT_GET, 'id');
 
-if (!isset($_SESSION['logged'])) {
-    header('Location:login.php?access=denied');
+// est-ce que l'id a été passé dans l'url
+if ($id == null) {
+    echo "Page non trouvée";
+    http_response_code(404);
     exit;
 }
 
-require '../model/product.php';
-$products = getAllProducts();
+// $id est un entier
+if (!preg_match("/^[1-9][0-9]*$/", $id)) {
+    echo "Page non trouvée";
+    http_response_code(404);
+    exit;
+}
 
-require '../view.php';
+require '../database.php';
+require '../model/product.php';
+$product = getProduct($id, $pdo);
+
+if (!$product) {
+    header('Location:readall.php?update-missing');
+    exit;
+}
+
+require '../view/product_one.php'
 ?>

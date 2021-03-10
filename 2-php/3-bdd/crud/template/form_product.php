@@ -14,6 +14,7 @@
 <?php
 if (isset($message)) {
     echo $message."<br>";
+
     var_dump($errors);
 }
 ?>

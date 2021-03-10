@@ -9,7 +9,9 @@ if (!isset($_SESSION['logged'])) {
     exit;
 }
 
-require 'models/product.php';
+require '../database.php';
+require '../model/product.php';
+$products = getAllProducts($pdo);
 
-require 'view.php';
+require '../view/product_all.php';
 ?>
