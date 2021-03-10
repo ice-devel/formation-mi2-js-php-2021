@@ -1,7 +1,7 @@
 <?php
     /*
      * Exercice :
-     * Vous avez de gérer les produits d'un commerce : espace administration sécurisé
+     * Vous avez besoin de gérer les produits d'un commerce : espace administration sécurisé
      * - produit :
      *  - id
      *  - date création
@@ -23,7 +23,7 @@
      * Si on tente d'aller sur une page protégée, il faut rediriger vers la page
      * de connexion si on est pas connecté.
      * Utilisez un utilisateur fixe avec un identifiant/mdp codé en dur
-     * (si vous voulez allez plus, utilisez des utilisateurs en base)
+     * (si vous voulez allez plus loin, utilisez des utilisateurs en base)
      *
      */
 ?>
