@@ -54,6 +54,14 @@
 
         if (empty($errors)) {
             $filenameCv = uniqid().$cv['name'];
+            /*
+             * Transaction si plusieurs requetes de modification des données
+             * (insert, update, delete) vont être réalisées, il faut les grouper dans une transaction
+             * La transaction permet d'éviter que si l'une des requête plante, les autres soient envoyées :
+             * on veut que tout fonctionne ou rien du tout, sinon on aurait des incohérences dans la bdd
+             */
+            // insertion de la candidature
+            $pdo->beginTransaction();
             $sql = "INSERT INTO application (name, email, available_at, description, cv_filename)
                     VALUES (:name, :email, :available, :desc, :cv)";
             $stmt = $pdo->prepare($sql);
@@ -66,11 +74,39 @@
             ]);
 
             if ($result) {
-                if (move_uploaded_file($cv['tmp_name'], "upload/".$filenameCv)) {
-                    // success
+                $lastId = $pdo->lastInsertId();
+                // insertion des languages choisis par le candidat
+                $result2 = true;
+                foreach ($langs as $lang) {
+                    $sql = "INSERT INTO application_language (application_id, language_id) 
+                            VALUES ($lastId, $lang)";
+                    if (!$pdo->query($sql)) {
+                        $result2 = false;
+                        break;
+                    }
+                }
+
+                if ($result2) {
+                    // upload du CV
+                    // api
+                    if (move_uploaded_file($cv['tmp_name'], "upload/".$filenameCv)) {
+                        // success : on valide l'ensemble des requêtes
+                        $pdo->commit();
+                    }
+                    else {
+                        // une erreur est survenue : on annule toutes les requêtes en cours
+                        // dans la transaction
+                        $pdo->rollBack();
+                    }
+                }
+                else {
+                    $pdo->rollBack();
                 }
             }
-            var_dump($stmt->errorInfo());
+            else {
+                $pdo->rollBack();
+                $errors['systeme'] = "erreur sql";
+            }
         }
     }
 ?>
