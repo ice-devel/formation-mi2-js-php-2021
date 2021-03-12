@@ -60,7 +60,7 @@ $products = $statement->fetchAll(PDO::FETCH_ASSOC);
             <td><?= $product['category_name'] ?></td>
             <td>
                 <a href='update.php?id=<?= $product['id'] ?>'>Modifier</a>
-                <a href='delete.php?id=<?= $product['id'] ?>'>Supprimer</a>
+                <a href='delete.php?id=<?= $product['id'] ?>' data-id="<?= $product['id'] ?>">Supprimer</a>
                 <a href='read.php?id=<?= $product['id'] ?>'>Afficher</a>
             </td>
         </tr>
