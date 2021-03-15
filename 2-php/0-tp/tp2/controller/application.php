@@ -22,6 +22,7 @@
         }
 
         require '../view/application_new.php';
+        return $content;
     }
 
     function listApplication() {
@@ -32,6 +33,7 @@
         $applications = getAllApplications($pdo);
 
         require '../view/application_readall.php';
+        return $content;
     }
 
     function displayApplication($id) {
@@ -47,6 +49,7 @@
         }
 
         require '../view/application_read.php';
+        return $content;
     }
 
     function displayApplicationCV($name) {
@@ -56,5 +59,6 @@
         $filename = "../upload/".$name;
         header("Content-Disposition: inline; filename=$filename");
         header("Content-type: application/pdf");
-        readfile($filename);
+        // readfile($filename);
+        return file_get_contents($filename);
     }

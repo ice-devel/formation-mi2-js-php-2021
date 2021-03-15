@@ -1,4 +1,4 @@
-
+<?php ob_start(); ?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -44,3 +44,4 @@
 </table>
 </body>
 </html>
+<?php $content = ob_get_contents(); ob_end_clean(); ?>

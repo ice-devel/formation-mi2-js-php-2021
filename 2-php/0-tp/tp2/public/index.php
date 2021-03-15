@@ -15,18 +15,20 @@ $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 // on execute le controller en fonction de cette url
 if ($url == "/candidature") {
-    createApplication();
+    $content = createApplication();
 }
 elseif ($url == "/admin/candidatures/liste") {
-    listApplication();
+    $content = listApplication();
 }
 elseif ($url == "/admin/candidatures/voir" && isset($_GET['id'])) {
-    displayApplication($_GET['id']);
+    $content = displayApplication($_GET['id']);
 }
 elseif ($url == "/admin/candidatures/cv" && isset($_GET['name'])) {
-    displayApplicationCV($_GET['name']);
+    $content = displayApplicationCV($_GET['name']);
 }
 else {
     http_response_code(404);
-    echo "Cette page n'existe pas";
+    die("Cette page n'existe pas");
 }
+
+echo $content;
