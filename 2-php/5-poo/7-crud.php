@@ -51,7 +51,6 @@ if (isset($_POST['insert-user'])) {
 
     <h1>Créer un user</h1>
     <?php
-        var_dump($errors);
     ?>
     <form method="post">
         <input type="text" name="username" />
