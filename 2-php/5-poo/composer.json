@@ -1,0 +1,18 @@
+{
+    "name": "fabian/5-poo",
+    "description": "exemple d'autoloading avec composer",
+    "authors": [
+        {
+            "name": "fab",
+            "email": "fab@mail.Fr"
+        }
+    ],
+    "require": {
+        "mobiledetect/mobiledetectlib": "^2.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "Fab\\": "namespace/"
+        }
+    }
+}

@@ -5,12 +5,19 @@ class Player {
      * Propriété de classe
      */
     private $id;
-    private DateTime $createdAt;
+    private ?DateTime $createdAt;
     private $name;
     private $score;
     private $zipcode;
     private $isEnabled;
     private $teamId;
+
+    // constante de classe
+    const EXPERIENCE = 15;
+
+    // propriété statique
+    static public $multiply = 3;
+    static private $nbPlayers = 0;
 
     /*
      * Le constructeur est déclenchée lors de l'instanciation
@@ -24,7 +31,8 @@ class Player {
      * @param $isEnabled
      * @param $teamId
      */
-    public function __construct($id, DateTime $createdAt, $name, $zipcode, $isEnabled, $teamId)
+    public function __construct($id=null, ?DateTime $createdAt=null, $name=null,
+                                $zipcode=null, $isEnabled=null, $teamId=null)
     {
         $this->id = $id;
         $this->createdAt = $createdAt;
@@ -33,6 +41,7 @@ class Player {
         $this->isEnabled = $isEnabled;
         $this->teamId = $teamId;
         $this->setDefaultScore();
+        self::addOnePlayer();
     }
 
     /*
@@ -88,19 +97,36 @@ class Player {
 
 
     public function hit(Player $hitPlayer) {
-        $this->score += 10;
+       // $this->score += Player::EXPERIENCE;
+        // this : reference à une instance
+        // self référence à la classe elle-même
+        $this->score += self::EXPERIENCE;
         $hitPlayer->score -= 10;
         echo $this->name." frappe ".$hitPlayer->name;
+    }
+
+    static public function addOnePlayer() {
+        self::$nbPlayers++;
+        // $this->
+        // le this n'a pas de sens dans une méthode statique
+        // car c'est une classe qui appelle cette méthode
+        // et non pas une instance
+    }
+
+    static public function getNbPlayers() {
+        return self::$nbPlayers;
     }
 }
 
 $player = new Player("test");
+$player = new Player("test");
+$player = new Player("test");
+$player = new Player("test");
+
 //$player->setName("test");
 
 $player->setName("test2");
 echo $player->getZipcode();
 $player->setScore("23");
 
-echo "<pre>";
-var_dump($player);
 
