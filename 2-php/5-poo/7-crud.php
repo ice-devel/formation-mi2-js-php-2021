@@ -16,7 +16,9 @@ if (isset($_POST['insert-user'])) {
     $errors = $userManager->validate($user);
 
     if (empty($errors)) {
-        $userManager->insert($user);
+        if ($userManager->insert($user)) {
+            header('Location: 7-crud.php');
+        }
     }
 }
 ?>
@@ -48,10 +50,13 @@ if (isset($_POST['insert-user'])) {
     </table>
 
     <h1>Créer un user</h1>
+    <?php
+        var_dump($errors);
+    ?>
     <form method="post">
         <input type="text" name="username" />
         <input type="text" name="password" />
-        <input type="submit" name="insert-user"
+        <input type="submit" name="insert-user"/>
     </form>
 
     <h1>Modifier un user</h1>
@@ -59,7 +64,7 @@ if (isset($_POST['insert-user'])) {
     <form method="post">
         <input type="text" name="username" />
         <input type="text" name="password" />
-        <input type="submit" name="update-user"
+        <input type="submit" name="update-user"/>
     </form>
 </body>
 </html>
