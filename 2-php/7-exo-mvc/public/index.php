@@ -17,6 +17,10 @@ elseif ($url == "/") {
     $gameController = new GameController();
     $content = $gameController->list();
 }
+elseif ($url == "/game/delete" && isset($_GET['id'])) {
+    $gameController = new GameController();
+    $content = $gameController->delete($_GET['id']);
+}
 else {
     http_response_code(404);
     echo "Cette page n'existe pas";

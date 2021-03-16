@@ -10,6 +10,16 @@
 </head>
 <body>
     <h1>Liste des jeux</h1>
+    <table>
+        <?php foreach ($games as $game): ?>
+            <tr>
+                <td><?= $game->getId() ?></td>
+                <td><?= $game->getName() ?></td>
+                <td><?= $game->getPrice() ?>€</td>
+                <td><a href="/game/delete?id=<?= $game->getId() ?>">Supprimer</a></td>
+            </tr>
+        <?php endforeach ?>
+    </table>
 </body>
 </html>
 <?php $content = ob_get_contents(); ob_end_clean(); ?>
