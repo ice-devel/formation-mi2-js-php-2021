@@ -42,7 +42,8 @@ class UserManager
 
     public function getOne($id) {
         $query = "SELECT * FROM user WHERE id = :id";
-        $statement = $this->pdo->query($query);
+        $statement = $this->pdo->prepare($query);
+        $statement->execute([':id' => $id]);
         $userTab = $statement->fetch(PDO::FETCH_ASSOC);
 
         $user = null;
