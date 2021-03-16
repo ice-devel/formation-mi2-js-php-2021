@@ -1,0 +1,14 @@
+{
+    "name": "fabian/6-crud-poo-mvc",
+    "description": "crud poo mvc",
+    "authors": [
+        {
+            "name": "fab",
+            "email": "fab@mail.Fr"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {"App\\":  "src/"}
+    }
+}
