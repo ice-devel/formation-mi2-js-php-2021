@@ -1,88 +1,88 @@
 <?php
-require 'crud/User.php';
-require 'crud/UserManager.php';
+/*
+ * Passage par référence
+ */
 
-const DB_HOST = "localhost";
-const DB_USER = "root";
-const DB_PASS = "";
-
-$pdo = new PDO("mysql:host=".DB_HOST.";dbname=formation_202103;charset=utf8", DB_USER, DB_PASS);
-
-$userManager = new UserManager($pdo);
-$users = $userManager->getAll();
-
-if (isset($_POST['insert-user'])) {
-    $user = $userManager->handleRequest();
-    $errors = $userManager->validate($user);
-
-    if (empty($errors)) {
-        if ($userManager->insert($user)) {
-            header('Location: 7-crud.php');
-        }
-    }
+/*
+ * Passage par valeur : passage par défaut pour les types primitifs : string, int, boolean
+ * Ainsi que les arrays
+ */
+function strtoupper_custom($str) {
+    $str = mb_strtoupper($str);
 }
 
-// suppression
-if (isset($_GET['action']) && $_GET['action'] == "delete" && isset($_GET['id'])) {
-    // supprimer l'utilisateur dont l'id a été passé dans l'url
-    $id = filter_input(INPUT_GET, 'id');
+$chaine = "coucou";
+strtoupper_custom($chaine);
+echo $chaine;
 
-    if ($id != null) {
-        $id = intval($id);
-        $user = $userManager->getOne($id);
-
-        if ($user != null) {
-            $userManager->delete($user);
-        }
-        else {
-            $message = "L'utilisateur n'existe pas/plus.";
-        }
-    }
+function strtoupper_custom_reference(&$str) {
+    $str = mb_strtoupper($str);
 }
 
-?>
+$chaine = "coucou";
+strtoupper_custom($chaine);
+echo $chaine;
 
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>CRUD POO</title>
-</head>
-<body>
-    <h1>Afficher/Supprimer les users</h1>
+/*
+ * Pour les objets, le passage par défaut se fait par référence
+ */
+class User {
+    public $name;
+}
 
-    <table>
-        <?php foreach ($users as $user): ?>
-        <tr>
-            <td><?= $user->getId() ?></td>
-            <td><?= $user->getUsername() ?></td>
-            <td><?= $user->getPassword() ?></td>
-            <td>
-                <a href="?action=update&id=<?= $user->getId() ?>">Modifier</a>
-                <a href="?action=delete&id=<?= $user->getId() ?>">Supprimer</a>
-            </td>
-        </tr>
-        <?php endforeach ?>
-    </table>
 
-    <h1>Créer un user</h1>
-    <?php
-    ?>
-    <form method="post">
-        <input type="text" name="username" />
-        <input type="text" name="password" />
-        <input type="submit" name="insert-user"/>
-    </form>
+function strtoupper_object($obj) {
+    $obj->name = strtoupper($obj->name);
+}
 
-    <h1>Modifier un user</h1>
+$user = new User();
+$user->name = "Manu";
 
-    <form method="post">
-        <input type="text" name="username" />
-        <input type="text" name="password" />
-        <input type="submit" name="update-user"/>
-    </form>
-</body>
-</html>
+strtoupper_object($user);
+echo $user->name;
+
+// si vous voulez passer une copie de l'objet, il faut manuellement faire une copie de l'objet
+$user2 = clone $user;
+
+// le principe de passage par référence vaut aussi pour les affections
+$user3 = $user;
+// $user3 est une référence à un $user, c'est le même objet en mémoire
+// donc modifier l'un implique que la modification de l'autre aussi
+$user3->name = "Nouveau nom";
+
+echo "<pre>";
+var_dump($user);
+var_dump($user2);
+var_dump($user3);
+
+// comparaisons de type primitif
+$chaine = "test";
+$chaine2 = $chaine;
+
+if ($chaine == $chaine2) {
+    // oui
+}
+
+if ($chaine === $chaine2) {
+    // oui
+}
+
+// comparaison d'objet
+if ($user == $user2) {
+    // oui : si les valeurs de toutes les propriétés des deux objets sont égales, alors
+    // les objets sont équivalents
+}
+
+if ($user === $user2) {
+    // faux : la comparaison stricte ne compare les valeurs des propriétés mais
+    // la référence en mémoire
+}
+
+if ($user === $user3) {
+    // oui les deux variables pointent vers le mêle objet en mémoire
+    // donc l'équivalence stricte est vraie
+}
+
+
+
+

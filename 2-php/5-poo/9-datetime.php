@@ -1,88 +1,92 @@
 <?php
 /*
- * Passage par référence
+ * Les datetimes
  */
 
-/*
- * Passage par valeur : passage par défaut pour les types primitifs : string, int, boolean
- * Ainsi que les arrays
- */
-function strtoupper_custom($str) {
-    $str = mb_strtoupper($str);
-}
+// par défaut la date actuelle
+$now = new DateTime();
 
-$chaine = "coucou";
-strtoupper_custom($chaine);
-echo $chaine;
+// afficher la date formattée
+echo $now->format("d/m/Y H:i:s")."<br>";
+echo $now->format("Y-m-d H:i:s")."<br>";
 
-function strtoupper_custom_reference(&$str) {
-    $str = mb_strtoupper($str);
-}
+// choisir une date précise manuellement
+$datetime = new DateTime('2019-06-04');
+echo $datetime->format("d/m/Y H:i:s")."<br>";
 
-$chaine = "coucou";
-strtoupper_custom($chaine);
-echo $chaine;
+// générer une date avec des mots-clés
+$yesterday = new DateTime("yesterday");
+$tomorrow = new DateTime("tomorrow");
+echo $yesterday->format("d/m/Y H:i:s")."<br>";
+echo $tomorrow->format("d/m/Y H:i:s")."<br>";
 
-/*
- * Pour les objets, le passage par défaut se fait par référence
- */
+$lastDayPreviousMonth = new DateTime("last day of previous month");
+echo $lastDayPreviousMonth->format("d/m/Y H:i:s")."<br>";
+
+/* Insertion en bdd */
 class User {
-    public $name;
-}
+    private string $name;
+    private DateTime $createdAt;
 
+    public function getCreatedAt(): DateTime
+    {
+        return $this->createdAt;
+    }
 
-function strtoupper_object($obj) {
-    $obj->name = strtoupper($obj->name);
+    public function setCreatedAt(DateTime $createdAt): void
+    {
+        $this->createdAt = $createdAt;
+    }
 }
 
 $user = new User();
-$user->name = "Manu";
+$user->setCreatedAt(new DateTime());
 
-strtoupper_object($user);
-echo $user->name;
+// bdd
+$sql = "INSERT INTO user(name, created_at) VALUES (:name, :createdAt)";
+/*
+$stmt->exexute([
+    ':name' => $user->getName(),
+    ':createdAt' => $user->getCreatedAt()->format("Y-m-d H:i:s"),
+]);
+*/
 
-// si vous voulez passer une copie de l'objet, il faut manuellement faire une copie de l'objet
-$user2 = clone $user;
+$sql = "SELECT * FROM user";
+$usersTab = [];
+foreach ($usersTab as $u) {
+    // $createdAt = new DateTime($u['created_at']);
+    $user = new User($u['id'], $u['name'], new DateTime($u['created_at']));
+}
 
-// le principe de passage par référence vaut aussi pour les affections
-$user3 = $user;
-// $user3 est une référence à un $user, c'est le même objet en mémoire
-// donc modifier l'un implique que la modification de l'autre aussi
-$user3->name = "Nouveau nom";
+$user->getCreatedAt()->format("d/m/Y H:i");
 
+/*
+ * Ajouter / soutraire des intervals
+ */
+$date = new DateTime("2021-08-31 15:00:00");
+// il faut d'abord un interval
+$dateInterval2Month = new DateInterval("P1M");
+// puis utiliser cet interval pour l'ajouter à un datetime
+$date->add($dateInterval2Month);
+echo $date->format('d/m/Y H:i:s')."<br>";
+// ou le soustraire d'un datetime
+$date->sub($dateInterval2Month);
+echo $date->format('d/m/Y H:i:s')."<br>";
+
+$date = new DateTime();
+$dateInterval2Month2Day = new DateInterval("P1M2D");
+$date->add($dateInterval2Month2Day);
+echo $date->format('d/m/Y H:i:s')."<br>";
+
+// faire la différence entre deux date
+$date = new DateTime();
+$yesterday = new DateTime("yesterday");
+$dateInterval = $date->diff($yesterday);
 echo "<pre>";
-var_dump($user);
-var_dump($user2);
-var_dump($user3);
+echo $dateInterval->format("%y %m %d");
 
-// comparaisons de type primitif
-$chaine = "test";
-$chaine2 = $chaine;
-
-if ($chaine == $chaine2) {
-    // oui
+// pas de souc pour comparer des datetime
+if ($date > $yesterday) {
+    // oui aujourd'hui est plus grand qu'hier
 }
-
-if ($chaine === $chaine2) {
-    // oui
-}
-
-// comparaison d'objet
-if ($user == $user2) {
-    // oui : si les valeurs de toutes les propriétés des deux objets sont égales, alors
-    // les objets sont équivalents
-}
-
-if ($user === $user2) {
-    // faux : la comparaison stricte ne compare les valeurs des propriétés mais
-    // la référence en mémoire
-}
-
-if ($user === $user3) {
-    // oui les deux variables pointent vers le mêle objet en mémoire
-    // donc l'équivalence stricte est vraie
-}
-
-
-
 

@@ -1,135 +1,76 @@
 <?php
 /*
- * Héritage / inheritance
- * Une classe qui hérite d'une autre classe possède les propriétés et les méthodes de la classe parent
- * Classe A : parent
- * Classe B hérite de A : enfant : B possède les propriétés et les méthodes de A
+ * Interface :
+ * Une interface est un contrat avec une classe : on va forcer une classe à faire quelque-chose
+ * Cela permet une méthode de travail où les développeurs ce qu'on leur a obligé d'implémenter
+ * Et cela va permettre de typer des variables pour s'assurer qu'elles ont la possibilité d'avoir
+ * le comportement attendu
  *
- * On utilise l'héritage quand plusieurs classes ont des propriétés ou des comportements en commun,
- * mais qu'elles ont chacune des spécificités
+ * On peut implémenter autant d'interface qu'on l'on veut sur une classe
+ * Une interface peut hériter d'une ou plusieurs interfaces : la classe qui implémente
+ * l'interface mère doit définir les méthodes de chacune des interfaces en cascade
  *
- * Dans l'héritage, si B hérite de A, on peut donc dire que B est un A, mais pas l'inverse
+ * On ne définit jamais le corps des fonctions dans les interfaces, uniquement les signatures.
+ * Ce sont les classes qui implémentent les interfaces qui doivent définir le corps.
+ *
  */
+interface Recruiter extends ContractReader {
+    public function hire(Salary $salary);
+}
 
-class Commercial extends User {
-    private array $products = ['banane', 'bureau'];
-    // cette classe hérite de User, donc elle a un name,username,password..
-    // ainsi que les méthodes __construct, sayHello...
-    // mais il est spécialisé : ici il a des products que le user n'a pas
-    public function lookAtMyProducts() {
-        echo "Mes produits : (Call me ".$this->getName().")";
-        foreach ($this->products as $product) {
-            echo "<p>".$product."</p>";
-        }
-    }
+interface ContractReader {
+    public function readContract($contract);
+}
+
+interface StaffRepresentative {
+    public function represents(array $salaries);
+}
+
+class Salary {
 
 }
 
-class Client extends User {
-    private array $orders;
-    private string $email;
+class Developer extends Salary implements StaffRepresentative, ContractReader {
+    public function represents(array $salaries) {}
+    public function readContract($contract) {}
+}
 
-    public function __construct($name, $email)
+class Designer extends Salary implements StaffRepresentative {
+    public function represents(array $salaries) {}
+}
+
+class CEO implements Recruiter {
+    public function hire(Salary $salary) {
+        echo "CEO hires";
+    }
+    public function readContract($contract) {}
+}
+
+class Chief extends Salary implements Recruiter, StaffRepresentative {
+    public function hire(Salary $salary)
     {
-        parent::__construct($name);
-        $this->email = $email;
+        echo "Chief hires";
     }
+    public function readContract($contract) {}
 
-    /*
-     * Surcharge / Override : on rédéfinit une méthode existant dans le parent
-     *
-     * Modifier la visibilité : on ne peut pas rendre la visibilité plus restrictive
-     * mais on peut la changer pour quelque-chose de plus permissif
-     */
-    public function thinkAboutSomething($something) {
-        echo "I'M THINKING OF ".mb_strtoupper($something);
+    public function represents(array $salaries) {}
+}
+
+class Service {
+    public function startProcess(Salary $salary, Recruiter $recruiter) {
+        echo "Le process d'embauche commence";
+        $recruiter->hire($salary);
     }
 }
 
-class Admin extends User {
-    private array $roles;
+$designer = new Designer();
+$developer = new Developer();
+$ceo = new CEO();
 
-    /*
-     * Surcharge / Override : on rédéfinit une méthode existant dans le parent
-     *
-     * Modifier la visibilité : on ne peut pas rendre la visibilité plus restrictive
-     * mais on peut la changer pour quelque-chose de plus permissif
-     */
-    // impossible : private function sayHello()
-    public function sayHello()
-    {
-        // on peut exécuter ce qui se trouvait dans la classe parent
-        // parent::sayHello();
-
-        // ou alors on peut redéfinir totalement le comportement
-        echo "<p>Hey salut gros moi C ".$this->name."</p>";
-    }
+// on peut également tester soi une classe implémente une interface grâce à instanceof
+if (!$ceo instanceof Recruiter) {
+    throw new Exception('t\'es teubé ou quoi lis la doc');
 }
 
-class User {
-    /*
-     * Nouvelle visibilité : protected = accessible directement
-     * dans les classes enfant sans passer par les getter/setter
-     *
-     */
-    protected string $name;
-    private string $username;
-    private string $password;
-
-    public function __construct($name)
-    {
-        $this->name = $name;
-    }
-
-    public function sayHello() {
-        echo "<p>Bonjour my name est ".$this->name."</p>";
-    }
-
-    public function getName() {
-        return $this->name;
-    }
-
-    private function thinkAboutSomething($something) {
-        echo "(I'm thinking of $something)";
-    }
-}
-
-$commercial = new Commercial("toto");
-$commercial->sayHello();
-$commercial->lookAtMyProducts();
-
-echo "<pre>";
-var_dump($commercial);
-
-$admin = new Admin("jean l'admin");
-$admin->sayHello();
-
-echo "<br>";
-
-$client = new Client('momo', 'momo@gmail.com');
-$client->thinkAboutSomething("I would like to buy this for nothing please");
-var_dump($client);
-
-$users = [$commercial, $admin, $client];
-
-foreach ($users as $user) {
-    // pas besoin de connaitre la spécialisation pour utiliser les comportements commun :
-    /** @var User $user */
-    $user->sayHello();
-
-    // tester une spécialisation : tester si un objet est une instance d'une certaine classe
-    if ($user instanceof Commercial) {
-        $user->lookAtMyProducts();
-    }
-}
-
-// les enfants sont des parents
-if ($admin instanceof User) {
-    // on rentre
-}
-if ($commercial instanceof User) {
-    // on rentre
-}
-if ($client instanceof User) {
-    // on rentre
-}
+$service = new Service();
+$service->startProcess($designer, $ceo);

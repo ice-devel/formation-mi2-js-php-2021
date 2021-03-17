@@ -21,6 +21,25 @@ if (isset($_POST['insert-user'])) {
         }
     }
 }
+
+// suppression
+if (isset($_GET['action']) && $_GET['action'] == "delete" && isset($_GET['id'])) {
+    // supprimer l'utilisateur dont l'id a été passé dans l'url
+    $id = filter_input(INPUT_GET, 'id');
+
+    if ($id != null) {
+        $id = intval($id);
+        $user = $userManager->getOne($id);
+
+        if ($user != null) {
+            $userManager->delete($user);
+        }
+        else {
+            $message = "L'utilisateur n'existe pas/plus.";
+        }
+    }
+}
+
 ?>
 
 <!doctype html>

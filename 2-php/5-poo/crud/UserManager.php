@@ -38,8 +38,23 @@ class UserManager
 
     }
 
-    public function delete() {
+    public function getOne($id) {
+        $query = "SELECT * FROM user WHERE id = :id";
+        $statement = $this->pdo->query($query);
+        $userTab = $statement->fetch(PDO::FETCH_ASSOC);
 
+        $user = null;
+        if ($userTab != false) {
+            $user = new User($userTab['id'], $userTab['username'], $userTab['password']);
+        }
+
+        return $user;
+    }
+
+    public function delete(User $user) {
+        $sql = "DELETE FROM user WHERE id = :id";
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute([':id' => $user->getId()]);
     }
 
     public function handleRequest() {
