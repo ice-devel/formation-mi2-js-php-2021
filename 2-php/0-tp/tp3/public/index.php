@@ -17,8 +17,8 @@ $router->addRoute("/admin/velo/delete", BikeController::class, "delete", ['id'])
 $router->addRoute("/admin/velo/update", BikeController::class, "update", ['id']);
 $router->addRoute("/login", SecurityController::class, "login");
 
-
 if ($router->match($url)) {
+    // on protège les pages avec une expression régulière : ici tout ce qui commence par /admin
     $protectedPages = "@^/admin@";
     if (preg_match($protectedPages, $url) && !isset($_SESSION['connected'])) {
         // page protégé mais on est pas connecté
