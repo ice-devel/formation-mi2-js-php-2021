@@ -1,0 +1,23 @@
+Faites tout simplement le CRUD en POO (MVC), pour un admin qui veut gérer
+son magasin de vélos.
+
+Les pages doivent être sécurisées avec une session, vous êtes libres de
+gérer les identifiants comme vous le voulez.
+
+Pour les vélos, il faut gérer :
+Nom
+Prix (au centime près)
+Taille
+Type de cadre (homme / femme)
+Suspension ou non (oui/non)
+Couleur principale
+Les couleurs disponibles doivent exister dans une table en base de données à part (que vous pré-remplissez manuellement).
+
+Un vélo sera donc lié à une couleur avec une relation n vers 1, ou encore manyToOne,
+et plusieurs vélos peuvent avoir la même couleur.
+
+Plus :
+Ajouter un formulaire de filtre dans la page de liste des vélos, permettant de rechercher
+des vélos. Il doit y avoir autant de champs que de propriétés du vélo.
+
+Ajouter une page qui liste le nombre de vélos par couleur.
