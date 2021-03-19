@@ -13,12 +13,25 @@ class BikeController
         $pdo = Connection::getPdo();
         $bikeManager = new BikeManager($pdo);
 
-        $bikes = $bikeManager->findAll();
+        if (isset($_GET['btn-form-filter'])) {
+            $name = filter_input(INPUT_GET, 'name');
+            $size = filter_input(INPUT_GET, 'size');
+            $bikes = $bikeManager->findByFilters($name, $size);
+        }
+        else {
+            $bikes = $bikeManager->findAll();
+        }
+
         require __DIR__.'/../View/bike/index.php';
         return $content;
     }
 
-    public function delete($id) {
+    public function delete($params) {
+        extract($params);
+        if (!isset($id)) {
+            throw new \Exception();
+        }
+
         $pdo = Connection::getPdo();
         $bikeManager = new BikeManager($pdo);
 
@@ -29,11 +42,16 @@ class BikeController
             $bikeManager->delete($bike);
         }
 
-        header("Location: /");
+        header("Location: /admin");
         exit;
     }
 
-    public function update($id) {
+    public function update($params) {
+        extract($params);
+        if (!isset($id)) {
+            throw new \Exception();
+        }
+
         $pdo = Connection::getPdo();
         $bikeManager = new BikeManager($pdo);
 
@@ -51,7 +69,7 @@ class BikeController
 
             if (empty($errors)) {
                 if ($bikeManager->update($bike)) {
-                    header('Location: /');
+                    header('Location: /admin');
                     exit;
                 }
             }

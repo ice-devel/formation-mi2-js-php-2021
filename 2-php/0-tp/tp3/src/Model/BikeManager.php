@@ -16,8 +16,59 @@ class BikeManager
     public function findAll() {
         $sql = "SELECT b.id AS bike_id, b.name AS bike_name, frame, price, created_at, has_suspension, size,
                         c.id AS color_id, c.name AS color_name
-                FROM bike B INNER JOIN color C ON b.color_id = c.id";
+                FROM bike B INNER JOIN color C ON b.color_id = c.id ORDER BY b.id";
         $statement = $this->pdo->query($sql);
+
+        $bikes = [];
+        while ($b = $statement->fetch(PDO::FETCH_ASSOC)) {
+            $bike = new Bike();
+            $bike->setId($b['bike_id']);
+            $bike->setFrame($b['frame']);
+            $bike->setHasSuspension(boolval($b['has_suspension']));
+            //$bike->setHasSuspension($b['has_suspension'] == 1);
+            $bike->setName($b['bike_name']);
+            $bike->setSize($b['size']);
+            $bike->setPrice($b['price']);
+            $bike->setCreatedAt(new DateTime($b['created_at']));
+
+            $color = new Color();
+            $color->setId($b['color_id']);
+            $color->setName($b['color_name']);
+            $bike->setColor($color);
+
+            $bikes[] = $bike;
+        }
+
+        return $bikes;
+    }
+
+
+    public function findByFilters($name="", $size="") {
+        $sql = "SELECT b.id AS bike_id, b.name AS bike_name, frame, price, created_at,
+                        has_suspension, size,
+                        c.id AS color_id, c.name AS color_name
+                FROM bike B INNER JOIN color C ON b.color_id = c.id
+                ";
+
+        // création de la condition en fonction des filtres saisis dans le formulaire
+        $where = "";
+        $params = [];
+        if ($name != "") {
+            $where .= "b.name LIKE :name AND ";
+            $params[':name'] = "%".$name."%";
+        }
+        if ($size != "") {
+            $where .= "b.size = :size AND ";
+            $params[':size'] = $size;
+        }
+
+        if ($where != "") {
+            $where = trim($where, "AND ");
+            $sql = $sql." WHERE ".$where;
+        }
+
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute($params);
 
         $bikes = [];
         while ($b = $statement->fetch(PDO::FETCH_ASSOC)) {

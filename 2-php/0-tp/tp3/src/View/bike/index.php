@@ -19,6 +19,12 @@
 <body>
     <h1>Liste des vélos</h1>
 
+    <form method="get">
+        <input type="text" name="name" />
+        <input type="text" name="size" />
+        <input type="submit" name="btn-form-filter" />
+    </form>
+
     <table>
     <?php foreach ($bikes as $bike): ?>
         <tr>
