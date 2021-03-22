@@ -110,3 +110,9 @@ Inclure des assets (css, js, images...):
 Afficher une propriété d'un objet, si on fait objet.propriete :
 - 
 - 
+-
+-
+
+# 4 Entités
+
+https://symfony.com/doc/current/doctrine/reverse_engineering.html
