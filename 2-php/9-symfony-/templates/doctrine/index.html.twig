@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Doctrine : liste des messages{% endblock %}
+
+{% block body %}
+    {% for message in messages %}
+        <p>
+            {{ message.description }}<br>
+            {{ message.createdAt | date('d/m/Y H:i') }}
+        </p>
+    {% endfor %}
+{% endblock %}
