@@ -76,6 +76,13 @@ exemple :
 - /user/update/{id}
 - public function methodName($id)
 
+Les paramètres de route peuvent être facultatif : il suffit de leur mettre une valeur par défaut
+dans la méthode de controller.
+
+On peut forcer des paramètres un respecter un format grâce une expression régulière, définie
+dans la section "requirements" de la route.
+
+Facultatif et format peuvent être définis directement dans le paramètre de route entre accolade.
 
 # 3 Templates
 Le moteur de template par défaut de Symfony est Twig.
