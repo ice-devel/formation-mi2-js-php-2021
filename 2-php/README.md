@@ -116,21 +116,34 @@ Afficher une propriété d'un objet, si on fait objet.propriete :
 - vérifie si __call est définie
 - sinon plante
 
+Messages flash :
+Les messages flash sont des messages destinées à n'être affiché qu'une seule fois :
+par exemple après la validation d'un formulaire pour indiquer à l'utilisateur
+si ça s'est pas bien ou pas. Les messages sont mis en réalité mis en session,
+et supprimé de la session dès lors qu'ils sont affichés en twig.
+
+On obtient les messages depuis la variable app en twig.
+
+Variable global App :
+
 # 4 Entités
 Les entités représentent les données métier que l'on veut persister.
 Par exemple, site e-commerce : compte client, produits et leur catégorie, commandes
 
 ## Création / Structure
-``
-1 - Configurer les accès de la BDD dans le fichier .env
-2 - Créer la base : php bin/console doctrine:database:create
-3 - Créer l'entité : php bin/console make:entity
-4 - Mettre à jour la base : 
+```
+- 1) Configurer les accès de la BDD dans le fichier .env
+- 2) Créer la base : php bin/console doctrine:database:create
+- 3) Créer l'entité : php bin/console make:entity
+- 4) Mettre à jour la base : 
     - soit avec les migrations (bonne pratique)
         - php bin/console make:migration
         - php bin/console doctrine:migrations:migrate
     - ou directement avec doctrine:schema:update
-``
+```
+
+On peut également créer des entités à partir d'une base de de données existante :
+https://symfony.com/doc/current/doctrine/reverse_engineering.html
 
 ## Utilisation CRUD
 ### READ
@@ -144,8 +157,7 @@ On pourra créer nos requêtes personnalisées.
 On récupère le manager de doctrine, qui gère les entités grâce aux méthodes : persist(), remove(), flush()
 Par défaut doctrine utilise les transactions.
 
-https://symfony.com/doc/current/doctrine/reverse_engineering.html
-
-Exercice : 
-Créer le CRUD en dur dans un controller pour une entité : Topic
-- id, createdAt, name
+### Relations entre entités
+ManyToOne / OneToMany
+ManyToMany / ManyToMany
+OneToOne 

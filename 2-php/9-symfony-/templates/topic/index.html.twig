@@ -6,7 +6,13 @@
     {% for topic in topics %}
         <p>
             {{ topic.name }}<br>
-            {{ topic.createdAt | date('d/m/Y H:i') }}
+            {{ topic.createdAt | date('d/m/Y H:i') }}<br>
+            {% for message in topic.messages %}
+                <p>
+                    {{ message.description }}<br>
+                    {{ message.createdAt | date('d/m/Y H:i') }}
+                </p>
+            {% endfor %}
         </p>
     {% endfor %}
 {% endblock %}

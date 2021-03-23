@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Topic;
+use App\Form\TopicType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -23,18 +25,28 @@ class TopicController extends AbstractController
     }
 
     #[Route('/new', name: 'topic_new')]
-    public function create(): Response
+    public function create(Request $request): Response
     {
         $topic = new Topic();
-        $topic->setName("PHP IS NOT WORKING");
+        $form = $this->createForm(TopicType::class, $topic);
+        $form->handleRequest($request);
 
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($topic);
-        $em->flush();
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($topic);
+                $em->flush();
+                $this->addFlash('success', "Topic bien créé en passant par le form");
+                return $this->redirectToRoute('topic_index');
+            }
+            else {
+                $this->addFlash('danger', "Formulaire pas valide");
+            }
+        }
 
-        $this->addFlash('success', "Topic bien créé");
-
-        return $this->redirectToRoute("topic_index");
+        return $this->render('topic/new.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 
     #[Route('/update/{id}', name: 'topic_update')]

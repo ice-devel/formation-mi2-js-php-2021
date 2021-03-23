@@ -5,6 +5,7 @@
 {% block body %}
     {% for message in messages %}
         <p>
+            {{ message.topic.name }}<br>
             {{ message.description }}<br>
             {{ message.createdAt | date('d/m/Y H:i') }}
         </p>

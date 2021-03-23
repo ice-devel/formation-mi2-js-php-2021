@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello TopicController!{% endblock %}
+
+{% block body %}
+    <h1>Création d'un topic</h1>
+
+    {# afficher le formulaire en une fois #}
+    {#  {{ form(form) }} #}
+
+    {# afficher ouverture/fermeture du form, puis afficher les champs #}
+    {#
+    {{ form_start(form) }}
+        {{ form(form) }}
+        <input type="submit" value="Coucou valide"/>
+    {{ form_end(form) }}
+    #}
+
+    {# afficher champ par champ #}
+    {#
+    {{ form_start(form) }}
+        <div class="col-4">
+            {{ form_row(form.name) }}
+        </div>
+
+
+        <input type="submit" value="Coucou valide"/>
+    {{ form_end(form) }}
+    #}
+
+    {# afficher champ par champ #}
+    {#
+    {{ form_start(form) }}
+        <div class="col-4">
+            {{ form_row(form.name) }}
+        </div>
+
+
+        <input type="submit" value="Coucou valide"/>
+    {{ form_end(form) }}
+    #}
+
+    {# afficher champ par champ #}
+    {{ form_start(form) }}
+        <div class="col-4">
+            {{ form_errors(form.name) }}
+            {{ form_label(form.name, null, {'label_attr': {'class': 'test'}}) }}
+            {{ form_widget(form.name, {'attr': {'class': 'classquiprendledessussurlaclassePHP'}}) }}
+            {{ form_help(form.name) }}
+        </div>
+
+        <input type="submit" value="Coucou valide"/>
+    {{ form_end(form) }}
+
+{% endblock %}
