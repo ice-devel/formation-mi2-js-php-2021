@@ -88,7 +88,7 @@ Facultatif et format peuvent être définis directement dans le paramètre de ro
 Le moteur de template par défaut de Symfony est Twig.
 Cela sert à générer une vue grâce à un template.
 
-Raccourci depuis un controlelr SF :
+Raccourci depuis un controller SF :
 - $this->render()
 - premier param : le fichier template
 - deuxième : tableau associatif des valeurs que l'on veut au template
@@ -108,11 +108,44 @@ Inclure des assets (css, js, images...):
 - asset("chemin/fichier/depuis/public")
 
 Afficher une propriété d'un objet, si on fait objet.propriete :
-- 
-- 
--
--
+- si objet est de type tableau, et si propriete est une clé valide : $objet['propriete']
+- si objet est de type objet, vérifie si propriete est une attribut valide (existe et est public) : $object->propriete
+- vérifie si propriete est une méthode valide : $object->propriete()
+- vérifie si le getter de cette propriete est valide : $object->getPropriete()
+- vérifie si les getters isPropriete / hasPropriete est valide
+- vérifie si __call est définie
+- sinon plante
 
 # 4 Entités
+Les entités représentent les données métier que l'on veut persister.
+Par exemple, site e-commerce : compte client, produits et leur catégorie, commandes
+
+## Création / Structure
+``
+1 - Configurer les accès de la BDD dans le fichier .env
+2 - Créer la base : php bin/console doctrine:database:create
+3 - Créer l'entité : php bin/console make:entity
+4 - Mettre à jour la base : 
+    - soit avec les migrations (bonne pratique)
+        - php bin/console make:migration
+        - php bin/console doctrine:migrations:migrate
+    - ou directement avec doctrine:schema:update
+``
+
+## Utilisation CRUD
+### READ
+Dans un controller, ou dans un service, on a besoin du manager de Doctrine.
+Grâce on va pouvoir récupérer les repository (qui sont les objets de récupération d'entité), avec par défaut :
+findAll, find, findBy, findOneBy
+
+On pourra créer nos requêtes personnalisées.
+
+### CREATE / UPDATE / DELETE
+On récupère le manager de doctrine, qui gère les entités grâce aux méthodes : persist(), remove(), flush()
+Par défaut doctrine utilise les transactions.
 
 https://symfony.com/doc/current/doctrine/reverse_engineering.html
+
+Exercice : 
+Créer le CRUD en dur dans un controller pour une entité : Topic
+- id, createdAt, name
