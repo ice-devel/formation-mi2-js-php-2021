@@ -17,7 +17,9 @@ class TopicController extends AbstractController
         $repo = $em->getRepository(Topic::class);
         $topics = $repo->findAll();
 
-        return $this->json($topics);
+        return $this->render('topic/index.html.twig', [
+            'topics' => $topics
+        ]);
     }
 
     #[Route('/new', name: 'topic_new')]
@@ -30,6 +32,8 @@ class TopicController extends AbstractController
         $em->persist($topic);
         $em->flush();
 
+        $this->addFlash('success', "Topic bien créé");
+
         return $this->redirectToRoute("topic_index");
     }
 
@@ -40,6 +44,8 @@ class TopicController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $em->flush();
 
+        $this->addFlash('success', "Topic bien mise à jour");
+
         return $this->redirectToRoute("topic_index");
     }
 
@@ -49,6 +55,8 @@ class TopicController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $em->remove($topic);
         $em->flush();
+
+        $this->addFlash('success', "Topic bien supprimé");
 
         return $this->redirectToRoute("topic_index");
     }

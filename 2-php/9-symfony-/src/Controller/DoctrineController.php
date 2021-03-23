@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Message;
+use App\Entity\Topic;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -30,8 +31,16 @@ class DoctrineController extends AbstractController
         $message = new Message();
         $message->setDescription("Numéro aléatoire ".rand(1, 1000));
 
+        $topic = new Topic();
+        $topic->setName("Topic du messsage : ".$message->getDescription());
+        $message->setTopic($topic);
+
         // on dit à doctrine de gérer cette entité
         $em->persist($message);
+        // le mapping "cascade" dans l'entité Message nous permet
+        // de ne pas avoir à indiquer à Doctrine de persist le $topic
+        // $em->persist($topic);
+
         // on lance les requêtes en attente
         $em->flush();
 

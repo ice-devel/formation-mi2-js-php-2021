@@ -28,6 +28,12 @@ class Message
      */
     private $description;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Topic::class, inversedBy="messages", cascade={"all"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $topic;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -58,6 +64,18 @@ class Message
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getTopic(): ?Topic
+    {
+        return $this->topic;
+    }
+
+    public function setTopic(?Topic $topic): self
+    {
+        $this->topic = $topic;
 
         return $this;
     }
