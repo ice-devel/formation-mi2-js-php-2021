@@ -49,6 +49,18 @@
             element.innerHTML = prototype;
             listTags.appendChild(element.firstChild);
         });
+
+        function deleteTag(btn) {
+            btn.closest('.tag-container').remove();
+        }
+        /*
+        let deleteBtns = document.querySelectorAll(".delete-tag");
+        deleteBtns.forEach(function(element) {
+            element.addEventListener('click', function() {
+                console.log("test");
+            })
+        });
+        */
     </script>
 
     {# afficher champ par champ #}
