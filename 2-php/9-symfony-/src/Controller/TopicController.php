@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Tag;
 use App\Entity\Topic;
 use App\Form\TopicType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -28,6 +29,15 @@ class TopicController extends AbstractController
     public function create(Request $request): Response
     {
         $topic = new Topic();
+
+        /*
+        $tag = new Tag();
+        $tag->setText("PHP");
+
+        $topic->addTag($tag);
+        //$tag->addTopic($topic); // ça c'est fait dans la classe Topic
+         */
+
         $form = $this->createForm(TopicType::class, $topic);
         $form->handleRequest($request);
 

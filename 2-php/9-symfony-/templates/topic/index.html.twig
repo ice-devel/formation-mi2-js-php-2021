@@ -3,6 +3,10 @@
 {% block title %}Hello TopicController!{% endblock %}
 
 {% block body %}
+    <p>
+        <a href="{{ path('topic_new') }}">Créer un topic</a>
+    </p>
+
     {% for topic in topics %}
         <p>
             {{ topic.name }}<br>

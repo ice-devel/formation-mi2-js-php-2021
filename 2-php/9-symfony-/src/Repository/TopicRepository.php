@@ -19,6 +19,31 @@ class TopicRepository extends ServiceEntityRepository
         parent::__construct($registry, Topic::class);
     }
 
+    /*
+     * query pour trouver des topics dont le nom contient $name
+     */
+    public function findByNameContains($name)
+    {
+        $qb =  $this->createQueryBuilder('t');
+
+        $qb->where('t.name LIKE :val')
+            ->setParameter('val', "%$name%")
+            ->orderBy('t.name', 'ASC')
+            ;
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findByNameContainsBuilder($name)
+    {
+        $qb =  $this->createQueryBuilder('t');
+
+        return $qb->where('t.name LIKE :val')
+            ->setParameter('val', "%$name%")
+            ->orderBy('t.name', 'ASC')
+            ;
+    }
+
     // /**
     //  * @return Topic[] Returns an array of Topic objects
     //  */

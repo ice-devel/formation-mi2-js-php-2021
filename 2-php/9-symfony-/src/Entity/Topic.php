@@ -37,10 +37,21 @@ class Topic
      */
     private $messages;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Tag::class, mappedBy="topics")
+     */
+    private $tags;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
         $this->messages = new ArrayCollection();
+        $this->tags = new ArrayCollection();
+    }
+
+    public function __toString(): string
+    {
+        return $this->getName();
     }
 
     public function getId(): ?int
@@ -97,6 +108,33 @@ class Topic
             if ($message->getTopic() === $this) {
                 $message->setTopic(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Tag[]
+     */
+    public function getTags(): Collection
+    {
+        return $this->tags;
+    }
+
+    public function addTag(Tag $tag): self
+    {
+        if (!$this->tags->contains($tag)) {
+            $this->tags[] = $tag;
+            $tag->addTopic($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTag(Tag $tag): self
+    {
+        if ($this->tags->removeElement($tag)) {
+            $tag->removeTopic($this);
         }
 
         return $this;

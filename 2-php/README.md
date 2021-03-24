@@ -107,6 +107,9 @@ parent et modifier uniquement certaines parties : les blocks.
 Inclure des assets (css, js, images...):
 - asset("chemin/fichier/depuis/public")
 
+Faire un lien vers un controller
+- path('route_name')
+
 Afficher une propriété d'un objet, si on fait objet.propriete :
 - si objet est de type tableau, et si propriete est une clé valide : $objet['propriete']
 - si objet est de type objet, vérifie si propriete est une attribut valide (existe et est public) : $object->propriete
@@ -122,7 +125,21 @@ par exemple après la validation d'un formulaire pour indiquer à l'utilisateur
 si ça s'est pas bien ou pas. Les messages sont mis en réalité mis en session,
 et supprimé de la session dès lors qu'ils sont affichés en twig.
 
-On obtient les messages depuis la variable app en twig.
+- Ajouter un message flash 
+``
+  $this->addFlash('type', 'message');
+``
+  
+- Afficher : On obtient les messages depuis la variable app en twig.
+``
+    {% for key, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ key }}" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+``
 
 Variable global App :
 
@@ -161,3 +178,58 @@ Par défaut doctrine utilise les transactions.
 ManyToOne / OneToMany
 ManyToMany / ManyToMany
 OneToOne 
+
+# 5 - Formulaires
+## Association avec entité
+
+Pour hydrater les entités dans symfony, on va utiliser le composant Form, au lieu
+de faire un formulaire en html, puis de récupérer les valeurs une par une,
+puis de valider les valeurs.
+
+- On crée un formulaire associé à une entité : ``make:form``
+- Dans le controller :
+    - on instancie l'objet
+    - on crée le formulaire et on lui associe l'instance
+    - on checke si le formulaire est soumis et valide
+        - si oui on enregistre en bdd av
+          ec doctrine
+    - sinon on affiche le formulaire dans le template avec les fonctions
+        - form() : le formulaire en une seule fois
+        - form_row() : champs par champs
+        - form_widget(), form_label(), form_errors(), form_help() : élément de champ par élément
+    
+On peut créer des thèmes de formulaires :
+https://symfony.com/doc/current/form/form_themes.html
+
+## Validation
+On valide ses entités grâce au composant Validator. Le composant Form utilise 
+automatiquement les validations. On configure les validations :
+- soit dans l'entité avec annotations/attributs
+- soit différent dans la classe FormType
+https://symfony.com/doc/current/reference/constraints.html
+
+On peut créer notre propre contrainte si on ne trouve pas parmi l'existant :
+https://symfony.com/doc/current/validation/custom_constraint.html
+
+## Options des formulaires
+On peut configurer les champs des formulaires :
+- type de champs html
+- label, mapped, attr (attributs html)
+- validation : constraints
+
+## Générer un crud :
+A partir d'une entité existante, on peut générer un crud entier avec 
+- controller
+- formulaire
+- templates
+
+`` php bin/consoke make:crud ``
+
+## Relations entre les entités dans les formulaires 
+- manyToOne:
+    - association à une entité existante en BDD
+    - création une entité : formulaire imbriqué
+    
+- oneToMany / manyToMany
+    - association à des entités existantes en BDD
+    
