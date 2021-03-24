@@ -38,7 +38,7 @@ class Topic
     private $messages;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Tag::class, mappedBy="topics")
+     * @ORM\ManyToMany(targetEntity=Tag::class, mappedBy="topics", cascade={"all"})
      */
     private $tags;
 

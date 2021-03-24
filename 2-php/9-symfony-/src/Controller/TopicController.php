@@ -30,6 +30,9 @@ class TopicController extends AbstractController
     {
         $topic = new Topic();
 
+        $tag = new Tag();
+        $tag->setText("PHP");
+        $topic->addTag($tag);
         /*
         $tag = new Tag();
         $tag->setText("PHP");

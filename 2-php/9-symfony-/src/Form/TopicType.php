@@ -4,8 +4,10 @@ namespace App\Form;
 
 use App\Entity\Topic;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Count;
 
 class TopicType extends AbstractType
 {
@@ -21,8 +23,26 @@ class TopicType extends AbstractType
                 ]
             ])
             /*
-             * oneToMany / ManyToMany : association avec des entités existantes
+             * oneToMany / ManyToMany : 1 - association avec des entités existantes
              */
+                /*
+            ->add('tags', null, [
+                'choice_label' => 'text',
+                'by_reference' => false
+            ])
+                */
+
+            /*
+             * oneToMany / ManyToMany : 2 - création avec d'entités (formulaires imbriqués)
+             */
+            ->add('tags', CollectionType::class, [
+                'allow_add' => true,
+                'entry_type' => TagType::class,
+                'prototype' => true,
+                'label' => false,
+                'by_reference' => false
+                //'constraints' => [new Count(['min' => 1])]
+            ])
         ;
     }
 

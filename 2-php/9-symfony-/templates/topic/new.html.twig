@@ -10,9 +10,40 @@
 
     {# afficher ouverture/fermeture du form, puis afficher les champs #}
     {{ form_start(form) }}
-        {{ form(form) }}
-        <input type="submit" value="Coucou valide"/>
+        {{ form_row(form.name) }}
+
+        <label>Les tags</label>
+        <div id="list-tags"
+             data-prototype="{{ form_widget(form.tags.vars.prototype)|e('html_attr') }}"
+             data-index="{{ form.tags | length }}"
+        >
+            {#  réafficher les tags qui existe déjà #}
+        </div>
+        <button type="button" id="btn-add-tag">Ajouter un tag</button>
+        <br>
+        <br>
+        <input type="submit" value="Enregistrer"/>
     {{ form_end(form) }}
+
+    <script>
+        let btn = document.querySelector("#btn-add-tag");
+        let listTags = document.querySelector("#list-tags");
+
+        // ajouter un formulaire imbriqué à chaque click sur le bouton,
+        // grâce au prototype
+        btn.addEventListener('click', function() {
+            let prototype = listTags.dataset.prototype;
+
+            let count = listTags.dataset.index;
+            prototype = prototype.replace(/__name__/g, count);
+            count++;
+            listTags.dataset.index = count;
+
+            let element = document.createElement("div");
+            element.innerHTML = prototype;
+            listTags.appendChild(element);
+        });
+    </script>
 
     {# afficher champ par champ #}
     {#

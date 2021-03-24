@@ -11,12 +11,22 @@
         <p>
             {{ topic.name }}<br>
             {{ topic.createdAt | date('d/m/Y H:i') }}<br>
-            {% for message in topic.messages %}
-                <p>
-                    {{ message.description }}<br>
-                    {{ message.createdAt | date('d/m/Y H:i') }}
-                </p>
-            {% endfor %}
         </p>
+
+        <h3>Tags</h3>
+
+        <ul>
+            {% for tag in topic.tags %}
+                <li>{{ tag.text }}</li>
+            {% endfor %}
+        </ul>
+
+        <h3>Message</h3>
+        {% for message in topic.messages %}
+            <p>
+                {{ message.description }}<br>
+                {{ message.createdAt | date('d/m/Y H:i') }}
+            </p>
+        {% endfor %}
     {% endfor %}
 {% endblock %}
