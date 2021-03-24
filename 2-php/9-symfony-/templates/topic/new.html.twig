@@ -9,21 +9,27 @@
     {#  {{ form(form) }} #}
 
     {# afficher ouverture/fermeture du form, puis afficher les champs #}
-    {{ form_start(form) }}
-        {{ form_row(form.name) }}
+    <div class="container">
+        {{ form_start(form) }}
+            {{ form_row(form.name) }}
 
-        <label>Les tags</label>
-        <div id="list-tags"
-             data-prototype="{{ form_widget(form.tags.vars.prototype)|e('html_attr') }}"
-             data-index="{{ form.tags | length }}"
-        >
-            {#  réafficher les tags qui existe déjà #}
-        </div>
-        <button type="button" id="btn-add-tag">Ajouter un tag</button>
-        <br>
-        <br>
-        <input type="submit" value="Enregistrer"/>
-    {{ form_end(form) }}
+            <label>Les tags</label>
+            <div id="list-tags" class="row"
+                 data-prototype="{{ include('topic/prototype/tag.html.twig', {'tag': form.tags.vars.prototype}) |e('html_attr') }}"
+                 data-index="{{ form.tags | length }}"
+            >
+                {#  réafficher les tags qui existe déjà #}
+                {% for tag in form.tags %}
+                    {{ include('topic/prototype/tag.html.twig', {'tag': tag}) }}
+                {% endfor %}
+
+            </div>
+            <button type="button" id="btn-add-tag">Ajouter un tag</button>
+            <br>
+            <br>
+            <input type="submit" value="Enregistrer"/>
+        {{ form_end(form) }}
+    </div>
 
     <script>
         let btn = document.querySelector("#btn-add-tag");
@@ -41,7 +47,7 @@
 
             let element = document.createElement("div");
             element.innerHTML = prototype;
-            listTags.appendChild(element);
+            listTags.appendChild(element.firstChild);
         });
     </script>
 

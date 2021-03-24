@@ -33,12 +33,12 @@ class TopicType extends AbstractType
                 */
 
             /*
-             * oneToMany / ManyToMany : 2 - création avec d'entités (formulaires imbriqués)
+             * oneToMany / ManyToMany : 2 - création avec d'entités (formulaires imbriqués) : JAVASCRIPT
              */
             ->add('tags', CollectionType::class, [
                 'allow_add' => true,
                 'entry_type' => TagType::class,
-                'prototype' => true,
+                //'prototype' => true,
                 'label' => false,
                 'by_reference' => false
                 //'constraints' => [new Count(['min' => 1])]

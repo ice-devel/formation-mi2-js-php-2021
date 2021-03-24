@@ -30,15 +30,12 @@ class TopicController extends AbstractController
     {
         $topic = new Topic();
 
-        $tag = new Tag();
-        $tag->setText("PHP");
-        $topic->addTag($tag);
         /*
+         * si on voulait mettre un form de tag imbriqué par défaut
         $tag = new Tag();
         $tag->setText("PHP");
-
         $topic->addTag($tag);
-        //$tag->addTopic($topic); // ça c'est fait dans la classe Topic
+        //$tag->addTopic($topic); // ça c'est déjà fait dans la classe Topic
          */
 
         $form = $this->createForm(TopicType::class, $topic);
