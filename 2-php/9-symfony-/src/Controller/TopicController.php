@@ -20,6 +20,7 @@ class TopicController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository(Topic::class);
+        //$topics = $repo->findBy(['name' => ['toto', 'jean'], [], 10]);
         $topics = $repo->findAll();
 
         return $this->render('topic/index.html.twig', [
