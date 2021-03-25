@@ -258,3 +258,15 @@ On peut par défaut injecter n'importe quel service :
 
 [Fonctionnement en image](https://zestedesavoir.com/media/galleries/500/1ae0ce0d-a264-4bfb-b3c6-37225d8f4e52.png)
 
+Exercice :
+- Une page qui affiche un topic grâce à son slug récupéré de l'URL
+- Dans cette page, ajouter un formulaire qui permet d'ajouter un message dans ce topic
+
+- Ajouter une fonctionnalité qui permet d'ajouter un point à un message.
+- Au sein d'un topic, afficher les messages triés par point : ceux qui le plus de point sont en premier.
+- S'assurer que le premier message (l'original) est toujours placé en premier même si ce n'est pas celui qui a le plus de point
+
+- Ajouter un système qui permet de rajouter des commentaires sur des messages 
+  
+- Faite une page d'accueil qui affiche les trois topics dont l'activité est la plus récente (le fait qu'un message/commentaire
+  ait été posté dedans)
