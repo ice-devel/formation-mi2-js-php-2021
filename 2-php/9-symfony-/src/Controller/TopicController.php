@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Tag;
 use App\Entity\Topic;
 use App\Form\TopicType;
+use App\Service\SlugService;
+use Monolog\Logger;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,7 +28,7 @@ class TopicController extends AbstractController
     }
 
     #[Route('/new', name: 'topic_new')]
-    public function create(Request $request): Response
+    public function create(Request $request, SlugService $slugService): Response
     {
         $topic = new Topic();
 
@@ -43,6 +45,10 @@ class TopicController extends AbstractController
 
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
+                // créer le slug du topic
+                $slug = $slugService->slugify($topic->getName());
+                $topic->setSlug($slug);
+
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($topic);
                 $em->flush();

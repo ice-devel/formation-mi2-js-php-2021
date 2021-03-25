@@ -42,6 +42,11 @@ class Topic
      */
     private $tags;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -136,6 +141,18 @@ class Topic
         if ($this->tags->removeElement($tag)) {
             $tag->removeTopic($this);
         }
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }

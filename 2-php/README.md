@@ -232,4 +232,23 @@ A partir d'une entité existante, on peut générer un crud entier avec
     
 - oneToMany / manyToMany
     - association à des entités existantes en BDD
+    - création de collection d'entité : formulaires imbriqués (javascript)
     
+
+## 6 - Services
+Un service est une classe d'objet qui va offrir une fonctionnalité particulière.
+On découpe nos classes le mieux possible en respectant le principe de responsabilité unique.
+
+Symfony nous propose son container de service.
+
+- Créer d'un service
+- Charger dans le container
+- Utilisation du service :
+    - Container instancie le service pour nous
+    - Il nous le retourne
+    - La fois suivante le service est instancié, le container nous le retourne directement
+
+Le container de service gère les dépendances (injection de dépendances) :
+quand un service a besoin d'un autre service pour fonctionner, on va laisser le container
+l'injecter automatiquement.
+
