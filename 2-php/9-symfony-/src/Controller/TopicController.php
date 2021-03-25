@@ -11,6 +11,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\AsciiSlugger;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/topic')]
 class TopicController extends AbstractController
@@ -29,7 +31,7 @@ class TopicController extends AbstractController
     }
 
     #[Route('/new', name: 'topic_new')]
-    public function create(Request $request, SlugService $slugService): Response
+    public function create(Request $request, SluggerInterface $slugger): Response
     {
         $topic = new Topic();
 
@@ -47,7 +49,7 @@ class TopicController extends AbstractController
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
                 // créer le slug du topic
-                $slug = $slugService->slugify($topic->getName());
+                $slug = $slugger->slug($topic->getName());
                 $topic->setSlug($slug);
 
                 $em = $this->getDoctrine()->getManager();

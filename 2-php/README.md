@@ -247,8 +247,14 @@ Symfony nous propose son container de service.
     - Container instancie le service pour nous
     - Il nous le retourne
     - La fois suivante le service est instancié, le container nous le retourne directement
-
+    
 Le container de service gère les dépendances (injection de dépendances) :
 quand un service a besoin d'un autre service pour fonctionner, on va laisser le container
-l'injecter automatiquement.
+l'injecter automatiquement. C'est le typage de la variable qui indique au container quel service est demandé.
+
+On peut par défaut injecter n'importe quel service :
+- dans toutes les méthodes des controllers
+- dans le constructeur d'autres services
+
+[Fonctionnement en image](https://zestedesavoir.com/media/galleries/500/1ae0ce0d-a264-4bfb-b3c6-37225d8f4e52.png)
 

@@ -2,8 +2,11 @@
 namespace App\Service;
 
 use Psr\Log\LoggerInterface;
+use Symfony\Component\String\AbstractUnicodeString;
+use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\String\UnicodeString;
 
-class SlugService
+class SlugService implements SluggerInterface
 {
     private $logger;
 
@@ -12,7 +15,7 @@ class SlugService
         $this->logger = $logger;
     }
 
-   public function slugify($text) {
+   public function slug(string $text, string $separator = '-', string $locale = null): AbstractUnicodeString {
         // replace non letter or digits by -
         $text = preg_replace('~[^\pL\d]+~u', '-', $text);
         // transliterate
@@ -27,11 +30,11 @@ class SlugService
         $text = strtolower($text);
 
         if (empty($text)) {
-            return 'n-a';
+            return new UnicodeString("n-a");
         }
 
         $this->addLog($text);
-        return $text;
+        return new UnicodeString($text);
     }
 
     public function addLog($text) {
