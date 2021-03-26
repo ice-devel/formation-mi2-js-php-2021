@@ -16,6 +16,8 @@
         {% endblock %}
     </head>
     <body>
+        {{ include('header.html.twig') }}
+
         {% block flashes %}
             {% for key, messages in app.flashes %}
                 {% for message in messages %}

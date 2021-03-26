@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Message;
 use App\Entity\Topic;
+use App\Form\CommentType;
 use App\Form\MessageTopicType;
 use App\Form\TopicType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -104,6 +106,35 @@ class TopicController extends AbstractController
 
        return $this->redirectToRoute('topic_show', ['slug' => $topic->getSlug()]);
     }
+
+    #[Route('/comment/new/{id}', name: 'topic_comment_new')]
+    public function commentNew(Request $request, Message $message): Response
+    {
+        $comment = new Comment();
+        $comment->setMessage($message);
+        $form = $this->createForm(CommentType::class, $comment, [
+            'action' => $this->generateUrl('topic_comment_new', ['id' => $message->getId()])
+        ]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($comment);
+                $em->flush();
+                $this->addFlash('success', "Commentaire bien créé");
+            }
+            else {
+                $this->addFlash('danger', "Formulaire pas valide");
+            }
+            return $this->redirectToRoute('topic_show', ['slug' => $message->getTopic()->getSlug()]);
+        }
+
+        return $this->render('topic/comment_form.html.twig', [
+            'formComment' => $form->createView()
+        ]);
+    }
+
 
     #[Route('/update/{id}', name: 'topic_update')]
     public function update(Topic $topic): Response

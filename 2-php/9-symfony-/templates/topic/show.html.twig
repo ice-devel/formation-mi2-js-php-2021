@@ -25,6 +25,18 @@
             {{ message.description }}<br>
             {{ message.createdAt | elapsed_time }}
         </p>
+        <ul>
+            {% for comment in message.comments %}
+                <li>{{ comment.description }}</li>
+            {% endfor %}
+        </ul>
+        <p>
+            {#  repasser par un controller : permet de centraliser la génération
+            d'une vue qui a besoin de ses propres services / variables #}
+            {{ render(controller(
+                'App\\Controller\\TopicController::commentNew', {'message': message}
+            )) }}
+        </p>
     {% endfor %}
 
     <h3>Ajouter un message</h3>
