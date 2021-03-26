@@ -38,7 +38,6 @@ class Logger implements LoggerInterface
 
     public function info($message, array $context = array())
     {
-        var_dump($message);exit;
     }
 
     public function debug($message, array $context = array())

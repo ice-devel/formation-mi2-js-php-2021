@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello TopicController!{% endblock %}
+
+{% block body %}
+    <h1>Affichage d'un topic</h1>
+
+    <p>
+        {{ topic.name }}<br>
+        {# {{ topic.createdAt | date('d/m/Y H:i') }} #}
+        {{ topic.createdAt | elapsed_time }}<br>
+    </p>
+
+    <h3>Tags</h3>
+
+    <ul>
+        {% for tag in topic.tags %}
+            <li>{{ tag.text }}</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Message</h3>
+    {% for message in topic.messages %}
+        <p>
+            {{ message.description }}<br>
+            {{ message.createdAt | elapsed_time }}
+        </p>
+    {% endfor %}
+
+    <h3>Ajouter un message</h3>
+    {{ form_start(formMessage) }}
+        {{ form_row(formMessage) }}
+        <input type="submit" value="Valider" />
+    {{ form_end(formMessage) }}
+{% endblock %}

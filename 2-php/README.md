@@ -268,5 +268,5 @@ Exercice :
 
 - Ajouter un système qui permet de rajouter des commentaires sur des messages 
   
-- Faite une page d'accueil qui affiche les trois topics dont l'activité est la plus récente (le fait qu'un message/commentaire
-  ait été posté dedans)
+- Faite une page d'accueil qui affiche les trois topics dont l'activité est la plus récente
+  (le fait qu'un message/commentaire ait été posté dedans)

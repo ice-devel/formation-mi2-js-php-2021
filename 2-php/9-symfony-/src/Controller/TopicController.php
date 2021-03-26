@@ -2,16 +2,14 @@
 
 namespace App\Controller;
 
-use App\Entity\Tag;
+use App\Entity\Message;
 use App\Entity\Topic;
+use App\Form\MessageTopicType;
 use App\Form\TopicType;
-use App\Service\SlugService;
-use Monolog\Logger;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\String\Slugger\AsciiSlugger;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/topic')]
@@ -66,6 +64,45 @@ class TopicController extends AbstractController
         return $this->render('topic/new.html.twig', [
             'form' => $form->createView()
         ]);
+    }
+
+    #[Route('/{slug}', name: 'topic_show')]
+    public function show(Topic $topic): Response
+    {
+        $form = $this->createForm(MessageTopicType::class, null, [
+            'action' => $this->generateUrl(
+                'topic_message_new',
+                ['id' => $topic->getId()]
+            )
+        ]);
+
+        return $this->render('topic/show.html.twig', [
+            'topic' => $topic,
+            'formMessage' => $form->createView()
+        ]);
+    }
+
+    #[Route('/message/new/{id}', name: 'topic_message_new')]
+    public function messageNew(Request $request, Topic $topic): Response
+    {
+        $message = new Message();
+        $message->setTopic($topic);
+        $form = $this->createForm(MessageTopicType::class, $message);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($message);
+                $em->flush();
+                $this->addFlash('success', "Message bien créé");
+            }
+            else {
+                $this->addFlash('danger', "Formulaire pas valide");
+            }
+        }
+
+       return $this->redirectToRoute('topic_show', ['slug' => $topic->getSlug()]);
     }
 
     #[Route('/update/{id}', name: 'topic_update')]
