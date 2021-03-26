@@ -16,6 +16,10 @@
         {% endblock %}
     </head>
     <body>
+        <div style="position:absolute;right:0;">
+            {{ render(controller('App\\Controller\\TopicController::randomQuote')) }}
+        </div>
+
         {{ include('header.html.twig') }}
 
         {% block flashes %}

@@ -8,13 +8,14 @@ use App\Entity\Topic;
 use App\Form\CommentType;
 use App\Form\MessageTopicType;
 use App\Form\TopicType;
+use App\Service\RandomQuote;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
-#[Route('/topic')]
+#[Route('/admin/topic')]
 class TopicController extends AbstractController
 {
     #[Route('/', name: 'topic_index')]
@@ -158,5 +159,15 @@ class TopicController extends AbstractController
         $this->addFlash('success', "Topic bien supprimé");
 
         return $this->redirectToRoute("topic_index");
+    }
+
+    /*
+     * Controller sans route, car pas appelable depuis une url :
+     * Il est uniquement inclus depuis un template avec la fonction render()
+     */
+    public function randomQuote(RandomQuote $randomQuote): Response
+    {
+        $quote = $randomQuote->getDailyQuote();
+        return new Response($quote);
     }
 }

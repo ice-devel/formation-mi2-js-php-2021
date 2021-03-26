@@ -76,6 +76,7 @@ exemple :
 - /user/update/{id}
 - public function methodName($id)
 
+## Options
 Les paramètres de route peuvent être facultatif : il suffit de leur mettre une valeur par défaut
 dans la méthode de controller.
 
@@ -83,6 +84,16 @@ On peut forcer des paramètres un respecter un format grâce une expression rég
 dans la section "requirements" de la route.
 
 Facultatif et format peuvent être définis directement dans le paramètre de route entre accolade.
+
+## ParamConverter
+Le composant ParamConverter permet de convertir des paramètres d'URL en objet.
+Il faut juste typer dans la méthode du controller l'objet souhaité, et l'instance sera injecté automatiquement.
+
+Exemple :
+url : /produit/{id}
+signature : function show(Produit $produit)
+La variable $produit sera automatiquement setté avec l'objet dont l'id a pour valeur le paramètre id
+Le nom du paramètre doit correspondre au nom de la propriété de l'objet.
 
 # 3 Templates
 Le moteur de template par défaut de Symfony est Twig.
@@ -125,6 +136,12 @@ par exemple après la validation d'un formulaire pour indiquer à l'utilisateur
 si ça s'est pas bien ou pas. Les messages sont mis en réalité mis en session,
 et supprimé de la session dès lors qu'ils sont affichés en twig.
 
+- include
+Inclure un template dans un autre
+  
+- render
+Appeler un controller depuis un template
+  
 - Ajouter un message flash 
 ``
   $this->addFlash('type', 'message');
@@ -270,3 +287,24 @@ Exercice :
   
 - Faite une page d'accueil qui affiche les trois topics dont l'activité est la plus récente
   (le fait qu'un message/commentaire ait été posté dedans)
+
+## 7 - Security
+Les sessions utilisateurs et l'authentification sont en grande partie gérées par le composant
+Security.
+
+Ce composant se configure dans config/packages/security.yaml.
+La première chose à faire serait d'indiquer une expression régulière pour protéger un ensemble de page.
+
+On ne vérifiera jamais si un utilisateur est connecté dans un controller dans le but de rediriger
+vers un formulaire de login, on laissera le composant le faire pour nous.
+
+Il y a plusieurs méthodes d'authentification possibles. La plus courante serait de créer un formulaire
+de login qui regarde en base si le user existe et si son mot de passe est bon.
+
+On peut se faciliter la tâche à nouveau avec les commandes :
+`` 
+symfony console make:user
+symfony console make:auth
+``
+
+

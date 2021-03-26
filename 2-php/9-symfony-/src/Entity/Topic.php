@@ -33,7 +33,11 @@ class Topic
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity=Message::class, mappedBy="topic", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Message::class,
+     *     mappedBy="topic",
+     *     orphanRemoval=true
+     *     )
+     * @ORM\OrderBy({"createdAt": "DESC"})
      */
     private $messages;
 
