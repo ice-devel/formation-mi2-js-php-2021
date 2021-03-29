@@ -307,4 +307,47 @@ symfony console make:user
 symfony console make:auth
 ``
 
+### Protéger des pages avec les rôles
+On peut déterminer les rôles requis pour un ensemble de page dans la config "access_control".
 
+### Accéder à l'utilisateur connecté
+#### Dans un controller :
+``$this->getUser()``
+
+#### Dans un template
+``{{ app.user }}``
+
+### Vérifier les rôles de l'utilisateur connecté
+#### Dans un controller
+``$this->isGranted("ROLE")``
+
+#### Dans un template
+``{% if is_granted("ROLE") %}``
+
+### Voters
+Les voters permettent de vérifier des régles métier sur les entités.
+On définit toutes les actions possibles sur une entité, et on spécifie dans un voter
+dans quelles circonstances un user connecté peut exécuter cette action.
+
+On utilise les voters pour éviter d'écrire ces régles dans les controllers.
+
+Dans les controllers, on utilise juste :
+``$this->denyAccessUnlessGranted(action, entity)``
+
+Un voter ne doit se déclencher que pour un seul type d'entité, mais on peut plusieurs voters
+pour un même type d'entité.
+On peut alors appliquer une stratégie de décision d'accès :
+Autoriser si un seul voter dit oui, si la majorité dit oui, si tout le monde dit oui, ou par priorité :
+https://symfony.com/doc/current/security/voters.html#changing-the-access-decision-strategy
+
+## 8 - Listener / Subscriber
+Système d'évenements / écouteurs
+
+Evenement Symfony
+
+Evenement Doctrine
+
+Listener entity :
+- Dans l'entité : HasLifeCycleCallbacks
+- Dans une classe listener pour toutes les entités
+- Dans une classe listener pour une entité

@@ -9,9 +9,11 @@ use App\Form\CommentType;
 use App\Form\MessageTopicType;
 use App\Form\TopicType;
 use App\Service\RandomQuote;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
@@ -50,8 +52,11 @@ class TopicController extends AbstractController
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
                 // créer le slug du topic
-                $slug = $slugger->slug($topic->getName());
-                $topic->setSlug($slug);
+                /*
+                 * On le fait plutôt dans un listener (EntityListener)
+                 */
+                // $slug = $slugger->slug($topic->getName());
+                // $topic->setSlug($slug);
 
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($topic);
@@ -138,15 +143,34 @@ class TopicController extends AbstractController
 
 
     #[Route('/update/{id}', name: 'topic_update')]
+    /**
+     *@IsGranted("ROLE_SUPER_ADMIN")
+     */
     public function update(Topic $topic): Response
     {
+        // équivalent de l'annotation
+        if (!$this->isGranted("ROLE_SUPER_ADMIN")) {
+            throw new AccessDeniedHttpException();
+        }
+
+        // est-ce le topic c'est celui de l'utilisateur connecté ?
+        /*
+        $user = $this->getUser();
+        if ($user->getId() != $topic->getUser()->getId()) {
+            throw new AccessDeniedHttpException();
+        }
+        */
+        // on passe plutôt par les voters : ici tous les voters qui supporte Topic seront testés
+        $this->denyAccessUnlessGranted("TOPIC_EDIT", $topic);
+
         $topic->setName($topic->getName(). " - modifié");
         $em = $this->getDoctrine()->getManager();
         $em->flush();
 
         $this->addFlash('success', "Topic bien mise à jour");
 
-        return $this->redirectToRoute("topic_index");
+        //return $this->redirectToRoute("topic_index");
+        return new Response("Topic bien modifié");
     }
 
     #[Route('/delete/{id}', name: 'topic_delete')]
