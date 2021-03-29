@@ -5,12 +5,14 @@ namespace App\Controller;
 use App\Entity\Comment;
 use App\Entity\Message;
 use App\Entity\Topic;
+use App\Event\TopicEvent;
 use App\Form\CommentType;
 use App\Form\MessageTopicType;
 use App\Form\TopicType;
 use App\Service\RandomQuote;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -34,7 +36,7 @@ class TopicController extends AbstractController
     }
 
     #[Route('/new', name: 'topic_new')]
-    public function create(Request $request, SluggerInterface $slugger): Response
+    public function create(Request $request, EventDispatcherInterface $dispatcher): Response
     {
         $topic = new Topic();
 
@@ -57,10 +59,13 @@ class TopicController extends AbstractController
                  */
                 // $slug = $slugger->slug($topic->getName());
                 // $topic->setSlug($slug);
-
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($topic);
                 $em->flush();
+
+                $dispatcher->dispatch(new TopicEvent($topic), TopicEvent::NAME);
+                exit;
+
                 $this->addFlash('success', "Topic bien créé en passant par le form");
                 return $this->redirectToRoute('topic_index');
             }

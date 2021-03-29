@@ -15,11 +15,10 @@ class TopicListener
     }
 
     public function prePersist(Topic $topic, LifecycleEventArgs $args) {
-        var_dump("listener topic");exit;
         // faire un traitement uniquement sur certains types d'entité
-        if ($entity instanceof Topic) {
-            $slug = $this->slugger->slug($entity->getName());
-            $entity->setSlug($slug);
+        if ($topic instanceof Topic) {
+            $slug = $this->slugger->slug($topic->getName());
+            $topic->setSlug($slug);
         }
     }
 }
