@@ -17,25 +17,23 @@ class SlugService implements SluggerInterface
     }
 
    public function slug(string $text, string $separator = '-', string $locale = null): AbstractUnicodeString {
-        // replace non letter or digits by -
-        $text = preg_replace('~[^\pL\d]+~u', '-', $text);
-        // transliterate
-        $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
-        // remove unwanted characters
-        $text = preg_replace('~[^-\w]+~', '', $text);
-        // trim
-        $text = trim($text, '-');
-        // remove duplicate -
-        $text = preg_replace('~-+~', '-', $text);
-        // lowercase
-        $text = strtolower($text);
+       if ($separator == "?") {
+           throw new \Exception();
+       }
 
-        if (empty($text)) {
-            return new UnicodeString("n-a");
-        }
+        $oldLocale = setlocale(LC_ALL, '0');
+       setlocale(LC_ALL, 'en_US.UTF-8');
+       $clean = iconv('UTF-8', 'ASCII//TRANSLIT', $text);
+       $clean = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $clean);
+       $clean = strtolower($clean);
+       $clean = preg_replace("/[\/_|+ -]+/", $separator, $clean);
+       $clean = trim($clean, $separator);
+       setlocale(LC_ALL, $oldLocale);
 
-        $this->addLog($text);
-        return new UnicodeString($text);
+       //$this->addLog($text);
+       $this->logger->info("On a slugify : $text");
+
+       return new UnicodeString($clean);
     }
 
     public function addLog($text) {

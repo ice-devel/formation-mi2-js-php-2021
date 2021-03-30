@@ -18,7 +18,7 @@ class User implements UserInterface
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private $id = 1;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
