@@ -342,12 +342,27 @@ https://symfony.com/doc/current/security/voters.html#changing-the-access-decisio
 
 ## 8 - Listener / Subscriber
 Système d'évenements / écouteurs
+Ecouter un événement / S'abbonnez à un événement permet de déclencher du code quand l'événément se produit.
+Les événéments sont envoyés grâce à un dispatcher.
+https://symfony.com/doc/current/event_dispatcher.html
 
 Evenement Symfony
+Cycle de vie de symfony
+http://www.abetari.com/cycle-de-vie-dune-application-symfony/
 
-Evenement Doctrine
+Evenement Form
+https://symfony.com/doc/current/form/events.html
 
+Evenement Doctrine : prePersist, postPersist
+https://symfony.com/doc/current/doctrine/events.html
+Cas particulier : pour les écouter trois possibilités :
 Listener entity :
 - Dans l'entité : HasLifeCycleCallbacks
-- Dans une classe listener pour toutes les entités
-- Dans une classe listener pour une entité
+- Dans une classe listener pour toutes les entités (config services.yaml)
+- Dans une classe listener pour une entité (config services.yaml)
+
+On peut également créer ses propres événements et les dispatcher.
+
+
+## 8 Tests automatisés
+Les tests automatisés : c'est du code qui permet de tester du code.

@@ -1,0 +1,12 @@
+{
+    "name": "fabian/1-tests",
+    "authors": [
+        {
+            "name": "fab",
+            "email": "fab@mail.Fr"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    }
+}

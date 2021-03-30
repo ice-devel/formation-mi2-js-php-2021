@@ -26,7 +26,8 @@ class MailerHelper
             //->priority(Email::PRIORITY_HIGH)
             ->subject($subject)
             //->text('Sending emails is fun again!')
-            ->html($content);
+            ->html($content)
+        ;
         $this->mailer->send($email);
     }
 }
