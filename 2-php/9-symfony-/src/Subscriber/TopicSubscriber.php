@@ -30,12 +30,11 @@ class TopicSubscriber implements EventSubscriberInterface
 
     public function sendEmailAdmin(TopicEvent $event) {
         $topic = $event->getTopic();
-        $this->mailerHelper->send('contact@votredomaine.com', 'to@mail.fr', "contenu html", "title");
+        //$this->mailerHelper->send('contact@votredomaine.com', 'to@mail.fr', "contenu html", "title");
 
     }
 
     public function updateStat(TopicEvent $event) {
         $topic = $event->getTopic();
-        var_dump("updatreStat");
     }
 }
