@@ -6,6 +6,7 @@ use App\Repository\TraineeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -18,17 +19,20 @@ class Trainee
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"group1"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"group1"})
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
+     * @Groups({"group1"})
      */
     private $name;
 
@@ -36,12 +40,14 @@ class Trainee
      * @ORM\Column(type="string", length=10)
      * @Assert\NotBlank()
      * @Assert\Regex("/^0[0-9]{9}$/")
+     * @Groups({"group1"})
      */
     private $phone;
 
     /**
      * @ORM\Column(type="date")
      * @Assert\NotBlank
+     * @Groups({"group1"})
      */
     private $birthday;
 
