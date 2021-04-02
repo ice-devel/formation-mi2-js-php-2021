@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AppController!{% endblock %}
+
+{% block body %}
+    <h1>Bonjour</h1>
+    <table>
+        {% for trainee in trainees %}
+        <tr>
+            <td>{{ trainee.name }}</td>
+            <td>{{ trainee.phone }}</td>
+            <td>{{ trainee.birthday | date('d/m/Y') }}</td>
+            <td>
+                <ul>
+                {% for skill in trainee.skills %}
+                    <li>{{ skill.name }}</li>
+                {% endfor %}
+                </ul>
+            </td>
+            <td>
+                {% if trainee.isBirthday  %}
+                    C'est son ANNIV !!
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

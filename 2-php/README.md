@@ -366,3 +366,30 @@ On peut également créer ses propres événements et les dispatcher.
 
 ## 8 Tests automatisés
 Les tests automatisés : c'est du code qui permet de tester du code.
+
+L'outil PHPUnit est celui utilisé par défaut avec Symfony.
+
+L'idée de permettre de faire évoluer l'application en évitant les régressions.
+
+Quand écrire ?
+- On écrit le code en entier, ou on récupère un projet sans tests : on écrit les tests à la fin (pas terrible)
+- On écrit une méthode : on écrit un test
+- TDD : Test driven developement - On écrit le test : il marche pas -> on écrit le code -> le test marche
+- On rencontre un bug : on l'écrit sous forme de test pour s'assurer qu'il ne se reproduira plus jamais
+
+Intégration / Déploiement Continu
+Intégrer les branches des devs vers la page principale / déplyer automatiquement :
+Ca va poser problème si il n'y a des jeux de tests signicatifs avant d'effecter ces actions.
+
+https://symfony.com/doc/current/testing.html
+
+### Tests de fumée / Smoke test
+Les tests critiques dans un application, comme vérifier que les pages principals répondent, etc.
+
+### Tests unitaires
+Tester de manière isolée une méthode
+
+### Tests fonctionnels
+Tester de manière plus globale une fonctionnalité de l'app
+
+BUndle sympa : hautelook/AliceBundle (Alice et Faker)
