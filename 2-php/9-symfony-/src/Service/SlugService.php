@@ -9,12 +9,7 @@ use Symfony\Component\String\UnicodeString;
 
 class SlugService implements SluggerInterface
 {
-    private $logger;
-
-    public function __construct(LoggerInterface $logger)
-    {
-        $this->logger = $logger;
-    }
+    public function __construct(private LoggerInterface $logger){}
 
    public function slug(string $text, string $separator = '-', string $locale = null): AbstractUnicodeString {
        if ($separator == "?") {

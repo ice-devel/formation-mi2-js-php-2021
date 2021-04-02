@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Trainee;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,7 +15,7 @@ class TraineeType extends AbstractType
         $builder
             ->add('name')
             ->add('phone')
-            ->add('birthday')
+            ->add('birthday', BirthdayType::class)
             ->add('skills', null, ['choice_label' => 'idAndName'])
         ;
     }

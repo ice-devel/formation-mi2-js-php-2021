@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route('/admin/topic')]
 class TopicController extends AbstractController
@@ -36,7 +37,7 @@ class TopicController extends AbstractController
     }
 
     #[Route('/new', name: 'topic_new')]
-    public function create(Request $request, EventDispatcherInterface $dispatcher): Response
+    public function create(Request $request, EventDispatcherInterface $dispatcher, TranslatorInterface $translator): Response
     {
         $topic = new Topic();
 
@@ -64,9 +65,9 @@ class TopicController extends AbstractController
                 $em->flush();
 
                 $dispatcher->dispatch(new TopicEvent($topic), TopicEvent::NAME);
-                exit;
 
-                $this->addFlash('success', "Topic bien créé en passant par le form");
+                $message = $translator->trans('topic.form.succes');
+                $this->addFlash('success', $message);
                 return $this->redirectToRoute('topic_index');
             }
             else {

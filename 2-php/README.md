@@ -392,4 +392,15 @@ Tester de manière isolée une méthode
 ### Tests fonctionnels
 Tester de manière plus globale une fonctionnalité de l'app
 
-BUndle sympa : hautelook/AliceBundle (Alice et Faker)
+
+## Bundles sympa
+Tests:
+ hautelook/AliceBundle (Alice et Faker)
+
+FOSUserBundle
+LiipImagineBundle
+ApiPlateform
+VichUploader
+SonataAdmin/EasyAdmin
+
+Tuto par Fabien Potencier : Symfony 5 : the fast track
